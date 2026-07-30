@@ -29,6 +29,7 @@ Rich 與 Carolyn 雙人健康管理 45 天計畫。核心目標是在 45 天內�
 /健管45天
 ├── AGENTS.md              # 專案藍圖與成員總覽
 ├── handoff.md             # 跨 session 交接紀錄檔
+├── diet_plan_week1.md     # 第一週飲食與營養補充計畫
 └── profiles/              # 成員詳細個人資料
     ├── Rich.md            # Rich 的初始數據與目標
     └── Carolyn.md         # Carolyn 的初始數據與目標
