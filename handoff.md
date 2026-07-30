@@ -3,10 +3,10 @@
 > 任何 Agent、任何電腦接手前**必讀**；收工時**必更新**。本檔只放交接必需的精簡資訊，詳細脈絡放 Obsidian（若有 L3）。
 
 ## ⏯️ 目前做到哪
-完成 L2 GitHub 初始化，並成功創建與同步私有 Repository（garfiwang/health-management-45days）。
+完成 L3 Obsidian 初始化，於二號大腦 Vault (`secondbrain/[Project] 健管45天/專案工作流程.md`) 建立詳細脈絡筆記。
 
 ## 🚦 目前狀態
-專案已完成 L1（本地 GDrive）與 L2（GitHub 私有 repo）初始化。
+專案已完全達成三層級初始化：L1（本地 GDrive）、L2（GitHub 私有 repo）、L3（Obsidian Vault）。
 
 ## ➡️ 下一步
 1. 為 Rich 與 Carolyn 依據 BMR 與活動量評估每日熱量赤字與三大營養素分配
