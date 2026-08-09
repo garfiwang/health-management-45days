@@ -3,19 +3,19 @@
 > 任何 Agent、任何電腦接手前**必讀**；收工時**必更新**。本檔只放交接必需的精簡資訊，詳細脈絡放 Obsidian（若有 L3）。
 
 ## ⏯️ 目前做到哪
-完成纖體日第 1 天（星期三）菜單 `slimming_day1_menu.md` 的整理與建置（引入生/熟蔬菜各 60g 與 1/2 水果，遵循進食順序與八戒原則）。
+完成第二週菜單 `diet_plan_week2.md` 的整理與建置（整合纖體日 6 天與蛋白日 1 天之日程安排、飲食守則、八戒原則、小叮嚀及雙人營養補充品需求表）。
 
 ## 🚦 目前狀態
-`slimming_day1_menu.md` 已建置完成，Git 已 push 至 origin/main。
+`diet_plan_week2.md` 已建置完成，`AGENTS.md` 已更新。
 
 ## ➡️ 下一步
-1. 追蹤 Rich 與 Carolyn 纖體日體重與身體反饋
-2. 進行第一週（準備日+蛋白日+纖體日）結案總結與第二週菜單規劃
+1. 協助 Rich 與 Carolyn 進行第二週飲食執行與營養補充品備貨分裝
+2. 追蹤兩位成員第二週身體數據變化（體重、體脂率、內臟脂肪）與飲食適應狀況
 
 ## ⚠️ 注意事項
 無
 
 ## 🕐 最後更新
-- 時間：2026-08-05 09:08
-- 更新者：Antigravity @ M3-Air---garfiwang-3.local
-- Git push：已同步至 origin/main
+- 時間：2026-08-09 08:59
+- 更新者：Antigravity
+- Git push：待同步至 origin/main
