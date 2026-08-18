@@ -18,6 +18,7 @@ Rich 提前達標；Carolyn 體型尺寸（腰圍與臀圍）顯著改善，現�
 Carolyn 身高 153cm、BMR 1151 kcal，消化道容量較小。大量高蛋白與膳食纖維進入時，必須避免快速吞嚥空氣或冷水，並維持少量慢飲與溫水搭配。
 
 ## 🕐 最後更新
-- 時間：2026-08-18 10:45
-- 更新者：Antigravity
-- Git push：已同步本地檔案
+- 時間：2026-08-18 11:06
+- 更新者：Antigravity @ macOS
+- Git push：✅ 已推至 origin/main (commit d045b93)
+
