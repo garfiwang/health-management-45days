@@ -19,7 +19,8 @@
 2. **蛋奶素防坑**：嚴禁百頁豆腐、炸豆皮與加工素肉；Carolyn 持續維持少量慢飲以防胃脹。
 
 ## 🕐 最後更新
-- 時間：2026-08-25 09:48
+- 時間：2026-08-25 09:50
 - 更新者：Antigravity @ macOS
-- Git push：✅ 已推至 origin/main
+- Git push：✅ 已推至 origin/main (commit 5331445)
+
 
