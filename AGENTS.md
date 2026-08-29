@@ -20,23 +20,29 @@ Rich 與 Carolyn 雙人健康管理 45 天計畫。核心目標是在 45 天內�
 
 ## 目標與路線圖
 - [x] 階段一：專案初始化與成員資料建檔（Rich & Carolyn）
-- [ ] 階段二：飲食、運動與熱量赤字策略規劃
-- [ ] 階段三：45 天進度追蹤與每週數據審視
+- [x] 階段二：飲食、運動與熱量赤字策略規劃 (`energy_deficit_plan.md`)
+- [x] 階段三：45 天進度追蹤與每週數據審視 (`progress_tracking.md`，目前已推至第 5 週)
 - [ ] 階段四：結案成果驗收與維持期計畫
 
 ## 資料夾結構
 ```
 /健管45天
-├── AGENTS.md              # 專案藍圖與成員總覽
-├── handoff.md             # 跨 session 交接紀錄檔
-├── diet_plan_week1.md     # 第一週飲食與營養補充計畫
-├── diet_plan_week2.md     # 第二週飲食與營養補充計畫
-├── diet_plan_week3.md     # 第三週飲食與營養補充計畫
-├── diet_plan_week4.md     # 第四週飲食與營養補充計畫
-├── diet_plan_week5.md     # 第五週飲食與營養補充計畫
-└── profiles/              # 成員詳細個人資料
-    ├── Rich.md            # Rich 的初始數據與目標
-    └── Carolyn.md         # Carolyn 的初始數據與目標
+├── AGENTS.md                      # 專案藍圖與成員總覽
+├── handoff.md                     # 跨 session 交接紀錄檔
+├── progress_tracking.md           # 45 天數據追蹤與每週成果表
+├── energy_deficit_plan.md         # 熱量赤字與運動強度策略規劃
+├── japan_restaurant_dining_guide.md # 日本旅遊外食飲食指南
+├── diet_plan_week1.md             # 第一週飲食與營養補充計畫
+├── diet_plan_week2.md             # 第二週飲食與營養補充計畫
+├── diet_plan_week3.md             # 第三週飲食與營養補充計畫
+├── diet_plan_week4.md             # 第四週飲食與營養補充計畫（蛋奶素）
+├── diet_plan_week5.md             # 第五週飲食與營養補充計畫（新陳代謝日）
+├── slimming_day1_menu.md          # 纖體日 Day 1 示範菜單
+├── day2_diet_menu.md              # 纖體日 Day 2 示範菜單
+├── protein_day2_menu.md           # 蛋白日 Day 2 示範菜單
+└── profiles/                      # 成員詳細個人資料
+    ├── Rich.md                    # Rich 的初始數據與目標
+    └── Carolyn.md                 # Carolyn 的初始數據與目標
 ```
 
 ## 同步層級（本專案初始化至第 3 層級）
