@@ -21,7 +21,7 @@ Rich 與 Carolyn 雙人健康管理 45 天計畫。核心目標是在 45 天內�
 ## 目標與路線圖
 - [x] 階段一：專案初始化與成員資料建檔（Rich & Carolyn）
 - [x] 階段二：飲食、運動與熱量赤字策略規劃 (`energy_deficit_plan.md`)
-- [x] 階段三：45 天進度追蹤與每週數據審視 (`progress_tracking.md`，目前已推至第 5 週)
+- [x] 階段三：45 天進度追蹤與每週數據審視 (`progress_tracking.md`，目前已推至第 6 週)
 - [ ] 階段四：結案成果驗收與維持期計畫
 
 ## 資料夾結構
@@ -37,6 +37,7 @@ Rich 與 Carolyn 雙人健康管理 45 天計畫。核心目標是在 45 天內�
 ├── diet_plan_week3.md             # 第三週飲食與營養補充計畫
 ├── diet_plan_week4.md             # 第四週飲食與營養補充計畫（蛋奶素）
 ├── diet_plan_week5.md             # 第五週飲食與營養補充計畫（新陳代謝日）
+├── diet_plan_week6.md             # 第六週飲食與營養補充計畫（6天新陳代謝日+1天蛋白日）
 ├── slimming_day1_menu.md          # 纖體日 Day 1 示範菜單
 ├── day2_diet_menu.md              # 纖體日 Day 2 示範菜單
 ├── protein_day2_menu.md           # 蛋白日 Day 2 示範菜單
