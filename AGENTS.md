@@ -38,7 +38,7 @@ Rich 與 Carolyn 雙人健康管理 45 天計畫。核心目標是在 45 天內�
 ├── diet_plan_week4.md             # 第四週飲食與營養補充計畫（蛋奶素）
 ├── diet_plan_week5.md             # 第五週飲食與營養補充計畫（新陳代謝日）
 ├── diet_plan_week6.md             # 第六週飲食與營養補充計畫（6天新陳代謝日+1天蛋白日）
-├── diet_plan_week7.md             # 第七週飲食與營養補充計畫（3天新陳代謝日+4天蛋白日）
+├── diet_plan_week7.md             # 第七週飲食與營養補充計畫（新陳代謝日 3天：四、五、六）
 ├── slimming_day1_menu.md          # 纖體日 Day 1 示範菜單
 ├── day2_diet_menu.md              # 纖體日 Day 2 示範菜單
 ├── protein_day2_menu.md           # 蛋白日 Day 2 示範菜單
