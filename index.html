@@ -7,23 +7,35 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800;900&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
   <style>
     body {
       font-family: 'Plus Jakarta Sans', 'Noto Sans TC', sans-serif;
     }
-    .tab-active {
-      border-bottom: 3px solid #2563eb;
-      color: #2563eb;
+    .nav-btn-active {
+      background-color: #2563eb;
+      color: #ffffff;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+    }
+    .nav-btn-inactive {
+      background-color: #f1f5f9;
+      color: #475569;
+    }
+    .nav-btn-inactive:hover {
+      background-color: #e2e8f0;
+      color: #0f172a;
+    }
+    .subnav-btn-active {
+      background: #ffffff;
+      color: #0f172a;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
       font-weight: 700;
     }
-    .tab-inactive {
+    .subnav-btn-inactive {
       color: #64748b;
-      border-bottom: 3px solid transparent;
     }
-    .tab-inactive:hover {
-      color: #0f172a;
-      border-bottom-color: #cbd5e1;
+    .subnav-btn-inactive:hover {
+      color: #1e293b;
     }
     .metric-card {
       transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
@@ -34,172 +46,150 @@
     }
   </style>
 </head>
-<body class="bg-slate-50 text-slate-800 antialiased min-h-screen py-8 px-4 sm:px-6 lg:px-8">
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen py-6 sm:py-10 px-4 sm:px-6 lg:px-8">
   <div class="max-w-6xl mx-auto space-y-8">
     
     <!-- Hero Header -->
-    <header class="bg-white border border-slate-200/80 rounded-3xl p-6 sm:p-8 shadow-sm">
+    <header class="bg-white border border-slate-200/90 rounded-3xl p-6 sm:p-8 shadow-sm">
       <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
         <div>
-          <div class="flex flex-wrap items-center gap-2.5 mb-2">
-            <span class="bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-xs font-bold px-3.5 py-1 rounded-full uppercase tracking-wider shadow-sm">45 Days Final</span>
-            <span class="bg-emerald-50 text-emerald-700 border border-emerald-200/60 text-xs font-semibold px-3 py-1 rounded-full">雙人雙雙逆勢增肌 +0.6%</span>
-            <span class="bg-amber-50 text-amber-700 border border-amber-200/60 text-xs font-semibold px-3 py-1 rounded-full">合計減重 7.8 kg</span>
+          <div class="flex flex-wrap items-center gap-2 mb-2.5">
+            <span class="bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-xs font-black px-3.5 py-1 rounded-full uppercase tracking-wider shadow-sm">45 Days Final</span>
+            <span class="bg-emerald-50 text-emerald-700 border border-emerald-200 text-xs font-bold px-3 py-1 rounded-full">💪 雙人雙雙逆勢增肌 +0.6%</span>
+            <span class="bg-blue-50 text-blue-700 border border-blue-200 text-xs font-bold px-3 py-1 rounded-full">📉 合計減重 7.8 kg</span>
           </div>
           <h1 class="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 tracking-tight">
             健管 45 天成果視覺化儀表板
           </h1>
-          <p class="text-slate-500 text-sm sm:text-base mt-2">
-            計畫期間：<strong class="text-slate-700">2026/07/30 ～ 2026/09/12</strong> ｜ 成員：<strong class="text-slate-800">Rich & Carolyn</strong>
+          <p class="text-slate-500 text-xs sm:text-sm mt-2">
+            執行期間：<strong class="text-slate-700">2026/07/30 ～ 2026/09/12</strong> ｜ 參與成員：<strong class="text-slate-900">Rich & Carolyn</strong>
           </p>
         </div>
 
-        <!-- Navigation Tabs -->
-        <div class="flex border-b border-slate-200 w-full lg:w-auto overflow-x-auto">
-          <button id="tab-rich" onclick="switchTab('rich')" class="tab-active px-5 py-3 text-sm font-semibold transition-all whitespace-nowrap">👨 Rich 數據圖表</button>
-          <button id="tab-carolyn" onclick="switchTab('carolyn')" class="tab-inactive px-5 py-3 text-sm font-semibold transition-all whitespace-nowrap">👩 Carolyn 數據圖表</button>
-          <button id="tab-compare" onclick="switchTab('compare')" class="tab-inactive px-5 py-3 text-sm font-semibold transition-all whitespace-nowrap">👥 雙人成果總對比</button>
-          <button id="tab-history" onclick="switchTab('history')" class="tab-inactive px-5 py-3 text-sm font-semibold transition-all whitespace-nowrap">📅 歷程數據總表</button>
+        <!-- Mode Toggle (圖表指標 / 總對比 / 歷程表) -->
+        <div class="flex bg-slate-100 p-1.5 rounded-2xl gap-1 w-full lg:w-auto overflow-x-auto">
+          <button id="view-mode-charts" onclick="switchMainView('charts')" class="nav-btn-active px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all whitespace-nowrap">📊 指標子分頁圖表</button>
+          <button id="view-mode-compare" onclick="switchMainView('compare')" class="nav-btn-inactive px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all whitespace-nowrap">👥 雙人成績單</button>
+          <button id="view-mode-history" onclick="switchMainView('history')" class="nav-btn-inactive px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all whitespace-nowrap">📅 歷程總表記錄</button>
         </div>
       </div>
     </header>
 
-    <!-- ================= RICH TAB ================= -->
-    <main id="view-rich" class="space-y-6">
-      <!-- KPI Cards -->
-      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-        <div class="metric-card bg-white border border-slate-200/80 p-5 sm:p-6 rounded-2xl shadow-sm">
-          <div class="text-xs font-bold text-slate-400 uppercase tracking-wider">體重變化 (kg)</div>
-          <div class="mt-2.5 flex items-baseline gap-2">
-            <span class="text-3xl sm:text-4xl font-black text-blue-600">63.0</span>
-            <span class="text-xs sm:text-sm text-slate-400 font-medium">初始 68.7</span>
-          </div>
-          <div class="mt-3 flex items-center text-xs font-bold text-emerald-600 bg-emerald-50 border border-emerald-100 px-2.5 py-1 rounded-lg w-fit">
-            📉 累減 -5.7 kg (-8.3%)
-          </div>
-          <div class="text-[11px] text-slate-400 mt-2 font-medium">
-            目標達成率 <strong class="text-blue-600 font-bold">165.7% (超額達成)</strong>
-          </div>
-        </div>
-
-        <div class="metric-card bg-white border border-slate-200/80 p-5 sm:p-6 rounded-2xl shadow-sm">
-          <div class="text-xs font-bold text-slate-400 uppercase tracking-wider">體脂率變化 (%)</div>
-          <div class="mt-2.5 flex items-baseline gap-2">
-            <span class="text-3xl sm:text-4xl font-black text-indigo-600">21.7%</span>
-            <span class="text-xs sm:text-sm text-slate-400 font-medium">初始 23.5%</span>
-          </div>
-          <div class="mt-3 flex items-center text-xs font-bold text-emerald-600 bg-emerald-50 border border-emerald-100 px-2.5 py-1 rounded-lg w-fit">
-            🔥 下降 -1.8%
-          </div>
-          <div class="text-[11px] text-slate-400 mt-2 font-medium">精實燃脂，純脂肪顯著下降</div>
-        </div>
-
-        <div class="metric-card bg-white border border-slate-200/80 p-5 sm:p-6 rounded-2xl shadow-sm">
-          <div class="text-xs font-bold text-slate-400 uppercase tracking-wider">骨骼肌率 (%)</div>
-          <div class="mt-2.5 flex items-baseline gap-2">
-            <span class="text-3xl sm:text-4xl font-black text-amber-500">31.7%</span>
-            <span class="text-xs sm:text-sm text-slate-400 font-medium">初始 31.1%</span>
-          </div>
-          <div class="mt-3 flex items-center text-xs font-bold text-amber-700 bg-amber-50 border border-amber-100 px-2.5 py-1 rounded-lg w-fit">
-            💪 逆勢增肌 +0.6%
-          </div>
-          <div class="text-[11px] text-slate-400 mt-2 font-medium">強化基礎代謝，打造燃脂體質</div>
-        </div>
-
-        <div class="metric-card bg-white border border-slate-200/80 p-5 sm:p-6 rounded-2xl shadow-sm">
-          <div class="text-xs font-bold text-slate-400 uppercase tracking-wider">內臟脂肪 & 身體年齡</div>
-          <div class="mt-2.5 flex items-baseline gap-2">
-            <span class="text-3xl sm:text-4xl font-black text-rose-500">7 級</span>
-            <span class="text-xs sm:text-sm text-slate-400 font-medium">初始 9 級</span>
-          </div>
-          <div class="mt-3 flex items-center text-xs font-bold text-rose-700 bg-rose-50 border border-rose-100 px-2.5 py-1 rounded-lg w-fit">
-            ❤️ 降 -2 級 ｜ 身體年齡 42 歲
-          </div>
-          <div class="text-[11px] text-slate-400 mt-2 font-medium">比實際年齡 48 歲逆齡年輕 6 歲</div>
-        </div>
+    <!-- ================= CHARTS VIEW WITH 4 SUB-TABS ================= -->
+    <div id="section-charts" class="space-y-6">
+      
+      <!-- Sub-tabs Navigation Bar -->
+      <div class="bg-slate-200/70 p-1.5 rounded-2xl flex flex-wrap sm:flex-nowrap gap-1">
+        <button id="subtab-weight" onclick="switchSubTab('weight')" class="subnav-btn-active flex-1 py-3 px-3 rounded-xl text-xs sm:text-sm font-bold flex items-center justify-center gap-2 transition-all">
+          <span>📉</span> 體重變化圖表
+        </button>
+        <button id="subtab-fat" onclick="switchSubTab('fat')" class="subnav-btn-inactive flex-1 py-3 px-3 rounded-xl text-xs sm:text-sm font-bold flex items-center justify-center gap-2 transition-all">
+          <span>🔥</span> 體脂變化圖表
+        </button>
+        <button id="subtab-visceral" onclick="switchSubTab('visceral')" class="subnav-btn-inactive flex-1 py-3 px-3 rounded-xl text-xs sm:text-sm font-bold flex items-center justify-center gap-2 transition-all">
+          <span>🫀</span> 內臟脂肪圖表
+        </button>
+        <button id="subtab-muscle" onclick="switchSubTab('muscle')" class="subnav-btn-inactive flex-1 py-3 px-3 rounded-xl text-xs sm:text-sm font-bold flex items-center justify-center gap-2 transition-all">
+          <span>💪</span> 骨骼肌率圖表
+        </button>
       </div>
 
-      <!-- Charts Row -->
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <!-- Main Line Chart: Rich Weight Trend -->
-        <div class="lg:col-span-2 bg-white border border-slate-200/80 rounded-3xl p-6 sm:p-7 shadow-sm">
+      <!-- 1. SUB-PANEL: 體重圖表 (WEIGHT) -->
+      <section id="panel-weight" class="space-y-6">
+        <!-- KPI Summary for Weight -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+          <div class="metric-card bg-white border border-slate-200/90 p-6 rounded-3xl shadow-sm">
+            <div class="flex justify-between items-start">
+              <div>
+                <span class="text-xs font-bold text-blue-600 bg-blue-50 px-2.5 py-1 rounded-md">👨 Rich 體重</span>
+                <div class="text-3xl font-black text-slate-900 mt-2">68.7 ➔ 63.0 <span class="text-sm font-medium text-slate-400">kg</span></div>
+              </div>
+              <span class="text-sm font-bold bg-emerald-50 text-emerald-700 px-3 py-1.5 rounded-xl border border-emerald-200">-5.7 kg (-8.3%)</span>
+            </div>
+            <div class="mt-4 pt-4 border-t border-slate-100 flex justify-between text-xs text-slate-500 font-medium">
+              <span>目標線：65.27 kg</span>
+              <span class="text-blue-600 font-bold">達成率 165.7% (超額達成 2.26kg)</span>
+            </div>
+          </div>
+
+          <div class="metric-card bg-white border border-slate-200/90 p-6 rounded-3xl shadow-sm">
+            <div class="flex justify-between items-start">
+              <div>
+                <span class="text-xs font-bold text-rose-600 bg-rose-50 px-2.5 py-1 rounded-md">👩 Carolyn 體重</span>
+                <div class="text-3xl font-black text-slate-900 mt-2">53.0 ➔ 50.9 <span class="text-sm font-medium text-slate-400">kg</span></div>
+              </div>
+              <span class="text-sm font-bold bg-emerald-50 text-emerald-700 px-3 py-1.5 rounded-xl border border-emerald-200">-2.1 kg (-4.0%)</span>
+            </div>
+            <div class="mt-4 pt-4 border-t border-slate-100 flex justify-between text-xs text-slate-500 font-medium">
+              <span>目標線：50.35 kg</span>
+              <span class="text-rose-600 font-bold">達成率 79.2% (穩定降至 50kg 關卡)</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Rich Weight Line Chart -->
+        <div class="bg-white border border-slate-200/90 rounded-3xl p-6 sm:p-8 shadow-sm">
           <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 mb-6">
             <div>
-              <h2 class="text-lg sm:text-xl font-bold text-slate-900">📉 Rich 體重推進趨勢 (45 天完整軌跡)</h2>
-              <p class="text-xs sm:text-sm text-slate-500 mt-0.5">從 68.7 kg 快速下降至 63.0 kg，超額突破原定目標 65.27 kg</p>
+              <h3 class="text-lg font-bold text-slate-900">📉 Rich 體重 45 天下降趨勢折線圖</h3>
+              <p class="text-xs text-slate-500">自 68.7 kg 穩步下行，第 3 週即提前破目標，結算降至 63.0 kg</p>
             </div>
-            <span class="text-xs font-bold bg-blue-50 text-blue-700 border border-blue-200/60 px-3 py-1 rounded-full">目標線 65.27 kg</span>
+            <span class="text-xs font-bold bg-blue-50 text-blue-700 border border-blue-200 px-3 py-1 rounded-full">目標線 65.27 kg</span>
           </div>
-          
-          <!-- SVG Trend Chart -->
           <div class="relative w-full overflow-x-auto">
             <svg viewBox="0 0 700 280" class="w-full min-w-[580px] h-64">
-              <!-- Grid Lines -->
               <line x1="50" y1="30" x2="670" y2="30" stroke="#f1f5f9" stroke-width="1" />
               <line x1="50" y1="80" x2="670" y2="80" stroke="#f1f5f9" stroke-width="1" />
               <line x1="50" y1="130" x2="670" y2="130" stroke="#f1f5f9" stroke-width="1" />
               <line x1="50" y1="180" x2="670" y2="180" stroke="#f1f5f9" stroke-width="1" />
               <line x1="50" y1="230" x2="670" y2="230" stroke="#cbd5e1" stroke-width="1.5" />
 
-              <!-- Y-Axis Labels -->
               <text x="40" y="34" font-size="11" fill="#94a3b8" text-anchor="end">70kg</text>
               <text x="40" y="84" font-size="11" fill="#94a3b8" text-anchor="end">68kg</text>
               <text x="40" y="134" font-size="11" fill="#94a3b8" text-anchor="end">66kg</text>
               <text x="40" y="184" font-size="11" fill="#94a3b8" text-anchor="end">64kg</text>
               <text x="40" y="234" font-size="11" fill="#94a3b8" text-anchor="end">62kg</text>
 
-              <!-- Target Dashed Line (65.27 kg -> y ≈ 152) -->
               <line x1="50" y1="152" x2="670" y2="152" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="4,4" />
               <text x="665" y="146" font-size="10" fill="#ef4444" text-anchor="end" font-weight="bold">目標線: 65.27 kg</text>
 
-              <!-- Area Fill Gradient -->
               <defs>
-                <linearGradient id="richGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                <linearGradient id="richWeightGrad" x1="0%" y1="0%" x2="0%" y2="100%">
                   <stop offset="0%" stop-color="#3b82f6" stop-opacity="0.25"/>
                   <stop offset="100%" stop-color="#3b82f6" stop-opacity="0.0"/>
                 </linearGradient>
               </defs>
-              
-              <polygon points="70,62 150,127 230,142 320,180 410,190 500,212 580,220 650,205 650,230 70,230" fill="url(#richGrad)" />
+              <polygon points="70,62 150,127 230,142 320,180 410,190 500,212 580,220 650,205 650,230 70,230" fill="url(#richWeightGrad)" />
               <polyline points="70,62 150,127 230,142 320,180 410,190 500,212 580,220 650,205" fill="none" stroke="#2563eb" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" />
 
-              <!-- Nodes & Labels -->
-              <!-- 07/30 -->
               <circle cx="70" cy="62" r="5" fill="#2563eb" stroke="#ffffff" stroke-width="2"/>
               <text x="70" y="48" font-size="11" font-weight="bold" fill="#0f172a" text-anchor="middle">68.7</text>
               <text x="70" y="250" font-size="10" fill="#64748b" text-anchor="middle">07/30(初)</text>
 
-              <!-- 08/03 -->
               <circle cx="150" cy="127" r="4" fill="#2563eb" stroke="#ffffff" stroke-width="2"/>
               <text x="150" y="117" font-size="10" fill="#475569" text-anchor="middle">66.1</text>
               <text x="150" y="250" font-size="10" fill="#64748b" text-anchor="middle">08/03</text>
 
-              <!-- 08/09 -->
               <circle cx="230" cy="142" r="4" fill="#2563eb" stroke="#ffffff" stroke-width="2"/>
               <text x="230" y="132" font-size="10" fill="#475569" text-anchor="middle">65.5</text>
               <text x="230" y="250" font-size="10" fill="#64748b" text-anchor="middle">W1結</text>
 
-              <!-- 08/18 -->
               <circle cx="320" cy="180" r="4" fill="#2563eb" stroke="#ffffff" stroke-width="2"/>
               <text x="320" y="170" font-size="10" fill="#475569" text-anchor="middle">64.0</text>
               <text x="320" y="250" font-size="10" fill="#64748b" text-anchor="middle">08/18</text>
 
-              <!-- 08/25 -->
               <circle cx="410" cy="190" r="4" fill="#2563eb" stroke="#ffffff" stroke-width="2"/>
               <text x="410" y="180" font-size="10" fill="#475569" text-anchor="middle">63.6</text>
               <text x="410" y="250" font-size="10" fill="#64748b" text-anchor="middle">W3結</text>
 
-              <!-- 09/03 -->
               <circle cx="500" cy="212" r="4" fill="#2563eb" stroke="#ffffff" stroke-width="2"/>
               <text x="500" y="202" font-size="10" fill="#475569" text-anchor="middle">62.7</text>
               <text x="500" y="250" font-size="10" fill="#64748b" text-anchor="middle">W5結</text>
 
-              <!-- 09/09 -->
               <circle cx="580" cy="220" r="4" fill="#2563eb" stroke="#ffffff" stroke-width="2"/>
               <text x="580" y="210" font-size="10" fill="#475569" text-anchor="middle">62.4</text>
               <text x="580" y="250" font-size="10" fill="#64748b" text-anchor="middle">W6結</text>
 
-              <!-- 09/12 -->
               <circle cx="650" cy="205" r="6.5" fill="#10b981" stroke="#ffffff" stroke-width="2.5"/>
               <text x="650" y="191" font-size="11" font-weight="bold" fill="#059669" text-anchor="middle">63.0</text>
               <text x="650" y="250" font-size="10" font-weight="bold" fill="#059669" text-anchor="middle">09/12(結)</text>
@@ -207,236 +197,342 @@
           </div>
         </div>
 
-        <!-- Body Composition Bars for Rich -->
-        <div class="bg-white border border-slate-200/80 rounded-3xl p-6 sm:p-7 shadow-sm flex flex-col justify-between">
-          <div>
-            <h2 class="text-lg sm:text-xl font-bold text-slate-900 mb-1">⚖️ 體組成成分變化</h2>
-            <p class="text-xs sm:text-sm text-slate-500 mb-6">體脂有感下降，骨骼肌健康攀升</p>
-            
-            <!-- Comparison 1: Body Fat -->
-            <div class="space-y-2 mb-5">
-              <div class="flex justify-between text-xs sm:text-sm font-semibold">
-                <span class="text-slate-600">體脂率 (Body Fat)</span>
-                <span class="text-indigo-600 font-bold">23.5% ➔ 21.7% (-1.8%)</span>
-              </div>
-              <div class="w-full bg-slate-100 rounded-full h-3 overflow-hidden flex">
-                <div class="bg-indigo-500 h-3 rounded-full" style="width: 72%"></div>
-              </div>
-            </div>
-
-            <!-- Comparison 2: Skeletal Muscle -->
-            <div class="space-y-2 mb-5">
-              <div class="flex justify-between text-xs sm:text-sm font-semibold">
-                <span class="text-slate-600">骨骼肌率 (Skeletal Muscle)</span>
-                <span class="text-amber-600 font-bold">31.1% ➔ 31.7% (+0.6%)</span>
-              </div>
-              <div class="w-full bg-slate-100 rounded-full h-3 overflow-hidden flex">
-                <div class="bg-amber-500 h-3 rounded-full" style="width: 80%"></div>
-              </div>
-            </div>
-
-            <!-- Comparison 3: Visceral Fat -->
-            <div class="space-y-2 mb-4">
-              <div class="flex justify-between text-xs sm:text-sm font-semibold">
-                <span class="text-slate-600">內臟脂肪 (Visceral Fat)</span>
-                <span class="text-rose-600 font-bold">9 級 ➔ 7 級 (-2 級)</span>
-              </div>
-              <div class="w-full bg-slate-100 rounded-full h-3 overflow-hidden flex">
-                <div class="bg-rose-500 h-3 rounded-full" style="width: 58%"></div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Extra specs box -->
-          <div class="bg-slate-50 border border-slate-200/80 rounded-2xl p-4 text-xs sm:text-sm text-slate-600 space-y-2 mt-4">
-            <div class="flex justify-between"><span>臀圍變化：</span><strong class="text-slate-800">96cm ➔ 92cm (-4cm)</strong></div>
-            <div class="flex justify-between"><span>基礎代謝 (BMR)：</span><strong class="text-slate-800">1506 kcal</strong></div>
-            <div class="flex justify-between"><span>BMI 數值：</span><strong class="text-slate-800">21.9 (標準健康體位)</strong></div>
-            <div class="flex justify-between"><span>血壓數值：</span><strong class="text-emerald-600 font-bold">120 / 80 mmHg (完美標準)</strong></div>
-          </div>
-        </div>
-      </div>
-    </main>
-
-    <!-- ================= CAROLYN TAB ================= -->
-    <section id="view-carolyn" class="space-y-6 hidden">
-      <!-- KPI Cards -->
-      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-        <div class="metric-card bg-white border border-slate-200/80 p-5 sm:p-6 rounded-2xl shadow-sm">
-          <div class="text-xs font-bold text-slate-400 uppercase tracking-wider">體重變化 (kg)</div>
-          <div class="mt-2.5 flex items-baseline gap-2">
-            <span class="text-3xl sm:text-4xl font-black text-rose-500">50.9</span>
-            <span class="text-xs sm:text-sm text-slate-400 font-medium">初始 53.0</span>
-          </div>
-          <div class="mt-3 flex items-center text-xs font-bold text-emerald-600 bg-emerald-50 border border-emerald-100 px-2.5 py-1 rounded-lg w-fit">
-            📉 累減 -2.1 kg (-4.0%)
-          </div>
-          <div class="text-[11px] text-slate-400 mt-2 font-medium">
-            目標達成率 <strong class="text-rose-600 font-bold">79.2% (穩定達標)</strong>
-          </div>
-        </div>
-
-        <div class="metric-card bg-white border border-slate-200/80 p-5 sm:p-6 rounded-2xl shadow-sm">
-          <div class="text-xs font-bold text-slate-400 uppercase tracking-wider">體脂率變化 (%)</div>
-          <div class="mt-2.5 flex items-baseline gap-2">
-            <span class="text-3xl sm:text-4xl font-black text-purple-600">30.4%</span>
-            <span class="text-xs sm:text-sm text-slate-400 font-medium">初始 32.2%</span>
-          </div>
-          <div class="mt-3 flex items-center text-xs font-bold text-emerald-600 bg-emerald-50 border border-emerald-100 px-2.5 py-1 rounded-lg w-fit">
-            🔥 下降 -1.8%
-          </div>
-          <div class="text-[11px] text-slate-400 mt-2 font-medium">腰臀圍顯著縮小，線條更緊緻</div>
-        </div>
-
-        <div class="metric-card bg-white border border-slate-200/80 p-5 sm:p-6 rounded-2xl shadow-sm">
-          <div class="text-xs font-bold text-slate-400 uppercase tracking-wider">骨骼肌率 (%)</div>
-          <div class="mt-2.5 flex items-baseline gap-2">
-            <span class="text-3xl sm:text-4xl font-black text-amber-500">24.4%</span>
-            <span class="text-xs sm:text-sm text-slate-400 font-medium">初始 23.8%</span>
-          </div>
-          <div class="mt-3 flex items-center text-xs font-bold text-amber-700 bg-amber-50 border border-amber-100 px-2.5 py-1 rounded-lg w-fit">
-            💪 逆勢增肌 +0.6%
-          </div>
-          <div class="text-[11px] text-slate-400 mt-2 font-medium">女性增肌極為不易，成效超群</div>
-        </div>
-
-        <div class="metric-card bg-white border border-slate-200/80 p-5 sm:p-6 rounded-2xl shadow-sm">
-          <div class="text-xs font-bold text-slate-400 uppercase tracking-wider">內臟脂肪 & 身體年齡</div>
-          <div class="mt-2.5 flex items-baseline gap-2">
-            <span class="text-3xl sm:text-4xl font-black text-emerald-600">4 級</span>
-            <span class="text-xs sm:text-sm text-slate-400 font-medium">初始 5 級</span>
-          </div>
-          <div class="mt-3 flex items-center text-xs font-bold text-emerald-700 bg-emerald-50 border border-emerald-100 px-2.5 py-1 rounded-lg w-fit">
-            ✨ 降 -1 級 ｜ 身體年齡 48 歲
-          </div>
-          <div class="text-[11px] text-slate-400 mt-2 font-medium">內臟脂肪降至超健康 4 級</div>
-        </div>
-      </div>
-
-      <!-- Charts Row -->
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <!-- Main Line Chart: Carolyn Weight Trend -->
-        <div class="lg:col-span-2 bg-white border border-slate-200/80 rounded-3xl p-6 sm:p-7 shadow-sm">
+        <!-- Carolyn Weight Line Chart -->
+        <div class="bg-white border border-slate-200/90 rounded-3xl p-6 sm:p-8 shadow-sm">
           <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 mb-6">
             <div>
-              <h2 class="text-lg sm:text-xl font-bold text-slate-900">📉 Carolyn 體重推進趨勢 (45 天完整軌跡)</h2>
-              <p class="text-xs sm:text-sm text-slate-500 mt-0.5">穩定下行至 50.9 kg，體脂持續降至 30.4%</p>
+              <h3 class="text-lg font-bold text-slate-900">📉 Carolyn 體重 45 天推進趨勢圖</h3>
+              <p class="text-xs text-slate-500">自 53.0 kg 下降至 50.9 kg，體態明顯緊實</p>
             </div>
-            <span class="text-xs font-bold bg-rose-50 text-rose-700 border border-rose-200/60 px-3 py-1 rounded-full">目標線 50.35 kg</span>
+            <span class="text-xs font-bold bg-rose-50 text-rose-700 border border-rose-200 px-3 py-1 rounded-full">目標線 50.35 kg</span>
           </div>
-          
-          <!-- SVG Trend Chart -->
           <div class="relative w-full overflow-x-auto">
             <svg viewBox="0 0 700 280" class="w-full min-w-[580px] h-64">
-              <!-- Grid Lines -->
               <line x1="50" y1="30" x2="670" y2="30" stroke="#f1f5f9" stroke-width="1" />
               <line x1="50" y1="80" x2="670" y2="80" stroke="#f1f5f9" stroke-width="1" />
               <line x1="50" y1="130" x2="670" y2="130" stroke="#f1f5f9" stroke-width="1" />
               <line x1="50" y1="180" x2="670" y2="180" stroke="#f1f5f9" stroke-width="1" />
               <line x1="50" y1="230" x2="670" y2="230" stroke="#cbd5e1" stroke-width="1.5" />
 
-              <!-- Y-Axis Labels -->
               <text x="40" y="34" font-size="11" fill="#94a3b8" text-anchor="end">54kg</text>
               <text x="40" y="84" font-size="11" fill="#94a3b8" text-anchor="end">53kg</text>
               <text x="40" y="134" font-size="11" fill="#94a3b8" text-anchor="end">52kg</text>
               <text x="40" y="184" font-size="11" fill="#94a3b8" text-anchor="end">51kg</text>
               <text x="40" y="234" font-size="11" fill="#94a3b8" text-anchor="end">50kg</text>
 
-              <!-- Target Dashed Line (50.35 kg -> y ≈ 212) -->
               <line x1="50" y1="212" x2="670" y2="212" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="4,4" />
               <text x="665" y="206" font-size="10" fill="#ef4444" text-anchor="end" font-weight="bold">目標線: 50.35 kg</text>
 
-              <!-- Area Fill Gradient -->
               <defs>
-                <linearGradient id="carolynGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                <linearGradient id="carolynWeightGrad" x1="0%" y1="0%" x2="0%" y2="100%">
                   <stop offset="0%" stop-color="#ec4899" stop-opacity="0.25"/>
                   <stop offset="100%" stop-color="#ec4899" stop-opacity="0.0"/>
                 </linearGradient>
               </defs>
-              
-              <polygon points="100,80 400,180 620,185 620,230 100,230" fill="url(#carolynGrad)" />
+              <polygon points="100,80 400,180 620,185 620,230 100,230" fill="url(#carolynWeightGrad)" />
               <polyline points="100,80 400,180 620,185" fill="none" stroke="#db2777" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" />
 
-              <!-- Nodes & Labels -->
-              <!-- 07/30 -->
               <circle cx="100" cy="80" r="5" fill="#db2777" stroke="#ffffff" stroke-width="2"/>
               <text x="100" y="66" font-size="11" font-weight="bold" fill="#0f172a" text-anchor="middle">53.0 kg</text>
               <text x="100" y="250" font-size="10" fill="#64748b" text-anchor="middle">07/30(初始)</text>
 
-              <!-- 08/18 Tracker Note -->
               <line x1="250" y1="30" x2="250" y2="230" stroke="#cbd5e1" stroke-width="1" stroke-dasharray="2,2"/>
               <text x="250" y="110" font-size="10" fill="#64748b" text-anchor="middle">08/18 追蹤</text>
               <text x="250" y="125" font-size="10" font-weight="bold" fill="#ec4899" text-anchor="middle">(腰圍顯著縮小)</text>
               <text x="250" y="250" font-size="10" fill="#64748b" text-anchor="middle">08/18(追蹤)</text>
 
-              <!-- 09/03 -->
               <circle cx="400" cy="180" r="5" fill="#db2777" stroke="#ffffff" stroke-width="2"/>
               <text x="400" y="168" font-size="11" font-weight="bold" fill="#0f172a" text-anchor="middle">51.0 kg</text>
               <text x="400" y="250" font-size="10" fill="#64748b" text-anchor="middle">09/03(W5結)</text>
 
-              <!-- 09/12 -->
               <circle cx="620" cy="185" r="6.5" fill="#10b981" stroke="#ffffff" stroke-width="2.5"/>
               <text x="620" y="171" font-size="11" font-weight="bold" fill="#059669" text-anchor="middle">50.9 kg</text>
               <text x="620" y="250" font-size="10" font-weight="bold" fill="#059669" text-anchor="middle">09/12(結算)</text>
             </svg>
           </div>
         </div>
+      </section>
 
-        <!-- Body Composition Bars for Carolyn -->
-        <div class="bg-white border border-slate-200/80 rounded-3xl p-6 sm:p-7 shadow-sm flex flex-col justify-between">
-          <div>
-            <h2 class="text-lg sm:text-xl font-bold text-slate-900 mb-1">⚖️ 體組成成分變化</h2>
-            <p class="text-xs sm:text-sm text-slate-500 mb-6">體脂有感下降，骨骼肌健康攀升</p>
-            
-            <!-- Comparison 1: Body Fat -->
-            <div class="space-y-2 mb-5">
-              <div class="flex justify-between text-xs sm:text-sm font-semibold">
-                <span class="text-slate-600">體脂率 (Body Fat)</span>
-                <span class="text-purple-600 font-bold">32.2% ➔ 30.4% (-1.8%)</span>
+      <!-- 2. SUB-PANEL: 體脂變化圖表 (BODY FAT %) -->
+      <section id="panel-fat" class="space-y-6 hidden">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          
+          <!-- Rich Body Fat Card -->
+          <div class="bg-white border border-slate-200/90 rounded-3xl p-6 sm:p-8 shadow-sm space-y-6">
+            <div class="flex justify-between items-center">
+              <div>
+                <span class="text-xs font-bold text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-md">👨 Rich 體脂率</span>
+                <h3 class="text-2xl font-black text-slate-900 mt-2">23.5% ➔ 21.7%</h3>
               </div>
-              <div class="w-full bg-slate-100 rounded-full h-3 overflow-hidden flex">
-                <div class="bg-purple-500 h-3 rounded-full" style="width: 76%"></div>
+              <span class="text-base font-black text-emerald-600 bg-emerald-50 px-3 py-1.5 rounded-xl border border-emerald-100">🔥 降 -1.8%</span>
+            </div>
+
+            <!-- Visual Bar Chart -->
+            <div class="space-y-4">
+              <div>
+                <div class="flex justify-between text-xs font-semibold text-slate-500 mb-1">
+                  <span>07/30 初始體脂</span>
+                  <span class="text-slate-700 font-bold">23.5%</span>
+                </div>
+                <div class="w-full bg-slate-100 rounded-xl h-6 overflow-hidden flex">
+                  <div class="bg-slate-400 h-6 flex items-center px-3 text-white text-xs font-bold rounded-xl" style="width: 78%;">23.5%</div>
+                </div>
+              </div>
+
+              <div>
+                <div class="flex justify-between text-xs font-semibold text-slate-500 mb-1">
+                  <span>09/12 結算體脂</span>
+                  <span class="text-indigo-600 font-bold">21.7% (-1.8%)</span>
+                </div>
+                <div class="w-full bg-slate-100 rounded-xl h-6 overflow-hidden flex">
+                  <div class="bg-indigo-600 h-6 flex items-center px-3 text-white text-xs font-bold rounded-xl" style="width: 72%;">21.7%</div>
+                </div>
               </div>
             </div>
 
-            <!-- Comparison 2: Skeletal Muscle -->
-            <div class="space-y-2 mb-5">
-              <div class="flex justify-between text-xs sm:text-sm font-semibold">
-                <span class="text-slate-600">骨骼肌率 (Skeletal Muscle)</span>
-                <span class="text-amber-600 font-bold">23.8% ➔ 24.4% (+0.6%)</span>
-              </div>
-              <div class="w-full bg-slate-100 rounded-full h-3 overflow-hidden flex">
-                <div class="bg-amber-500 h-3 rounded-full" style="width: 66%"></div>
-              </div>
-            </div>
-
-            <!-- Comparison 3: Visceral Fat -->
-            <div class="space-y-2 mb-4">
-              <div class="flex justify-between text-xs sm:text-sm font-semibold">
-                <span class="text-slate-600">內臟脂肪 (Visceral Fat)</span>
-                <span class="text-emerald-600 font-bold">5 級 ➔ 4 級 (-1 級)</span>
-              </div>
-              <div class="w-full bg-slate-100 rounded-full h-3 overflow-hidden flex">
-                <div class="bg-emerald-500 h-3 rounded-full" style="width: 40%"></div>
-              </div>
+            <div class="bg-indigo-50/70 border border-indigo-100 rounded-2xl p-4 text-xs text-indigo-900 leading-relaxed">
+              💡 <strong>脂肪重實質減少</strong>：從初始脂肪重 16.14 kg 降至約 13.67 kg，純脂肪減去約 <strong>2.47 kg</strong>！
             </div>
           </div>
 
-          <!-- Extra specs box -->
-          <div class="bg-slate-50 border border-slate-200/80 rounded-2xl p-4 text-xs sm:text-sm text-slate-600 space-y-2 mt-4">
-            <div class="flex justify-between"><span>BMI 數值：</span><strong class="text-slate-800">21.7 (標準健康體位)</strong></div>
-            <div class="flex justify-between"><span>基礎代謝 (BMR)：</span><strong class="text-slate-800">1125 kcal</strong></div>
-            <div class="flex justify-between"><span>身體年齡：</span><strong class="text-purple-600 font-bold">48 歲 (年輕 1 歲)</strong></div>
+          <!-- Carolyn Body Fat Card -->
+          <div class="bg-white border border-slate-200/90 rounded-3xl p-6 sm:p-8 shadow-sm space-y-6">
+            <div class="flex justify-between items-center">
+              <div>
+                <span class="text-xs font-bold text-purple-600 bg-purple-50 px-2.5 py-1 rounded-md">👩 Carolyn 體脂率</span>
+                <h3 class="text-2xl font-black text-slate-900 mt-2">32.2% ➔ 30.4%</h3>
+              </div>
+              <span class="text-base font-black text-emerald-600 bg-emerald-50 px-3 py-1.5 rounded-xl border border-emerald-100">🔥 降 -1.8%</span>
+            </div>
+
+            <!-- Visual Bar Chart -->
+            <div class="space-y-4">
+              <div>
+                <div class="flex justify-between text-xs font-semibold text-slate-500 mb-1">
+                  <span>07/30 初始體脂</span>
+                  <span class="text-slate-700 font-bold">32.2%</span>
+                </div>
+                <div class="w-full bg-slate-100 rounded-xl h-6 overflow-hidden flex">
+                  <div class="bg-slate-400 h-6 flex items-center px-3 text-white text-xs font-bold rounded-xl" style="width: 85%;">32.2%</div>
+                </div>
+              </div>
+
+              <div>
+                <div class="flex justify-between text-xs font-semibold text-slate-500 mb-1">
+                  <span>09/03 第5週體脂</span>
+                  <span class="text-purple-500 font-bold">30.7% (-1.5%)</span>
+                </div>
+                <div class="w-full bg-slate-100 rounded-xl h-6 overflow-hidden flex">
+                  <div class="bg-purple-400 h-6 flex items-center px-3 text-white text-xs font-bold rounded-xl" style="width: 78%;">30.7%</div>
+                </div>
+              </div>
+
+              <div>
+                <div class="flex justify-between text-xs font-semibold text-slate-500 mb-1">
+                  <span>09/12 結算體脂</span>
+                  <span class="text-purple-600 font-bold">30.4% (-1.8%)</span>
+                </div>
+                <div class="w-full bg-slate-100 rounded-xl h-6 overflow-hidden flex">
+                  <div class="bg-purple-600 h-6 flex items-center px-3 text-white text-xs font-bold rounded-xl" style="width: 75%;">30.4%</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="bg-purple-50/70 border border-purple-100 rounded-2xl p-4 text-xs text-purple-900 leading-relaxed">
+              💡 <strong>腰臀圍有感緊縮</strong>：體脂下降 1.8 個百分點，腰圍與臀圍顯著縮小，腹部與下半身線條更顯緊緻。
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- 3. SUB-PANEL: 內臟脂肪圖表 (VISCERAL FAT) -->
+      <section id="panel-visceral" class="space-y-6 hidden">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          
+          <!-- Rich Visceral Fat Card -->
+          <div class="bg-white border border-slate-200/90 rounded-3xl p-6 sm:p-8 shadow-sm space-y-6">
+            <div class="flex justify-between items-center">
+              <div>
+                <span class="text-xs font-bold text-rose-600 bg-rose-50 px-2.5 py-1 rounded-md">👨 Rich 內臟脂肪</span>
+                <h3 class="text-3xl font-black text-slate-900 mt-2">等級 9 ➔ 等級 7</h3>
+              </div>
+              <span class="text-sm font-black text-emerald-600 bg-emerald-50 px-3 py-1.5 rounded-xl border border-emerald-100">❤️ 降 -2 級</span>
+            </div>
+
+            <!-- Gauge / Level Bar -->
+            <div class="space-y-3">
+              <div class="flex justify-between text-xs font-bold text-slate-600">
+                <span>標準安全區 (1-9)</span>
+                <span>偏高區 (10-14)</span>
+                <span>危險區 (15+)</span>
+              </div>
+              <div class="w-full bg-slate-100 rounded-xl h-7 flex p-1 gap-1">
+                <div class="bg-emerald-500 rounded-lg flex-1 flex items-center justify-center text-[10px] text-white font-bold">1 ~ 7 (超優)</div>
+                <div class="bg-emerald-400 rounded-lg flex-1 flex items-center justify-center text-[10px] text-white font-bold">8 ~ 9 (標準)</div>
+                <div class="bg-amber-400 rounded-lg flex-1 flex items-center justify-center text-[10px] text-white font-bold">10 ~ 14</div>
+                <div class="bg-rose-500 rounded-lg flex-1 flex items-center justify-center text-[10px] text-white font-bold">15+</div>
+              </div>
+              <div class="flex justify-between items-center text-xs pt-2">
+                <span class="text-slate-400">初始：9 級（標準上限）</span>
+                <span class="text-emerald-600 font-black text-sm">結算：7 級（大幅遠離臨界點）</span>
+              </div>
+            </div>
+
+            <div class="bg-rose-50/70 border border-rose-100 rounded-2xl p-4 text-xs text-rose-900 leading-relaxed space-y-1">
+              <div><strong>健康益處</strong>：內臟脂肪降至 7 級，有效降低心血管負荷與胰島素阻抗風險。</div>
+              <div><strong>附加指標</strong>：血壓達到完美標準 <strong>120 / 80 mmHg</strong>，身體年齡逆齡 6 歲（42 歲）。</div>
+            </div>
+          </div>
+
+          <!-- Carolyn Visceral Fat Card -->
+          <div class="bg-white border border-slate-200/90 rounded-3xl p-6 sm:p-8 shadow-sm space-y-6">
+            <div class="flex justify-between items-center">
+              <div>
+                <span class="text-xs font-bold text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-md">👩 Carolyn 內臟脂肪</span>
+                <h3 class="text-3xl font-black text-slate-900 mt-2">等級 5 ➔ 等級 4</h3>
+              </div>
+              <span class="text-sm font-black text-emerald-600 bg-emerald-50 px-3 py-1.5 rounded-xl border border-emerald-100">✨ 降 -1 級</span>
+            </div>
+
+            <!-- Gauge / Level Bar -->
+            <div class="space-y-3">
+              <div class="flex justify-between text-xs font-bold text-slate-600">
+                <span>標準安全區 (1-9)</span>
+                <span>偏高區 (10-14)</span>
+                <span>危險區 (15+)</span>
+              </div>
+              <div class="w-full bg-slate-100 rounded-xl h-7 flex p-1 gap-1">
+                <div class="bg-emerald-500 rounded-lg flex-1 flex items-center justify-center text-[10px] text-white font-bold">1 ~ 4 (極優)</div>
+                <div class="bg-emerald-400 rounded-lg flex-1 flex items-center justify-center text-[10px] text-white font-bold">5 ~ 9 (標準)</div>
+                <div class="bg-amber-400 rounded-lg flex-1 flex items-center justify-center text-[10px] text-white font-bold">10 ~ 14</div>
+                <div class="bg-rose-500 rounded-lg flex-1 flex items-center justify-center text-[10px] text-white font-bold">15+</div>
+              </div>
+              <div class="flex justify-between items-center text-xs pt-2">
+                <span class="text-slate-400">初始：5 級（標準區間）</span>
+                <span class="text-emerald-600 font-black text-sm">結算：4 級（極致優等生指標）</span>
+              </div>
+            </div>
+
+            <div class="bg-emerald-50/70 border border-emerald-100 rounded-2xl p-4 text-xs text-emerald-900 leading-relaxed space-y-1">
+              <div><strong>健康益處</strong>：內臟脂肪達到極低的 <strong>4 級</strong>，腹部臟器周圍零多餘負擔。</div>
+              <div><strong>附加指標</strong>：BMI 維持在極為標準的 <strong>21.7</strong>，身體年齡評估為 48 歲。</div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- 4. SUB-PANEL: 骨骼肌率圖表 (SKELETAL MUSCLE %) -->
+      <section id="panel-muscle" class="space-y-6 hidden">
+        <div class="bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 text-white rounded-3xl p-6 sm:p-8 shadow-sm">
+          <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+            <div>
+              <span class="bg-white/20 text-white text-xs font-extrabold px-3 py-1 rounded-full uppercase tracking-wider">Major Breakthrough</span>
+              <h3 class="text-2xl sm:text-3xl font-black mt-2">雙人雙雙「逆勢增肌 +0.6%」！</h3>
+              <p class="text-amber-100 text-xs sm:text-sm mt-1">一般減重容易流失肌肉，但 45 天高蛋白與科學飲食讓兩人骨骼肌率全數上升！</p>
+            </div>
+            <div class="bg-white text-slate-900 font-black text-2xl sm:text-3xl px-6 py-3 rounded-2xl shadow-md text-center">
+              +0.6% <span class="text-xs font-semibold text-slate-500 block">共同增肌幅度</span>
+            </div>
           </div>
         </div>
-      </div>
-    </section>
 
-    <!-- ================= COMPARE TAB ================= -->
-    <section id="view-compare" class="space-y-6 hidden">
-      <!-- Compare Summary Table Card -->
-      <div class="bg-white border border-slate-200/80 rounded-3xl p-6 sm:p-8 shadow-sm">
-        <h2 class="text-lg sm:text-xl font-bold text-slate-900 mb-6">👥 Rich 與 Carolyn 45 天雙人結算成績單</h2>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          
+          <!-- Rich Skeletal Muscle Card -->
+          <div class="bg-white border border-slate-200/90 rounded-3xl p-6 sm:p-8 shadow-sm space-y-5">
+            <div class="flex justify-between items-center">
+              <div>
+                <span class="text-xs font-bold text-amber-700 bg-amber-50 px-2.5 py-1 rounded-md">👨 Rich 骨骼肌率</span>
+                <h4 class="text-2xl font-black text-slate-900 mt-2">31.1% ➔ 31.7%</h4>
+              </div>
+              <span class="text-sm font-black text-amber-600 bg-amber-50 px-3 py-1.5 rounded-xl border border-amber-200">💪 +0.6%</span>
+            </div>
+
+            <div class="space-y-3">
+              <div>
+                <div class="flex justify-between text-xs font-semibold text-slate-500 mb-1">
+                  <span>07/30 初始骨骼肌率</span>
+                  <span class="text-slate-700 font-bold">31.1%</span>
+                </div>
+                <div class="w-full bg-slate-100 rounded-xl h-6 overflow-hidden flex">
+                  <div class="bg-slate-400 h-6 flex items-center px-3 text-white text-xs font-bold rounded-xl" style="width: 77%;">31.1%</div>
+                </div>
+              </div>
+
+              <div>
+                <div class="flex justify-between text-xs font-semibold text-slate-500 mb-1">
+                  <span>09/12 結算骨骼肌率</span>
+                  <span class="text-amber-600 font-bold">31.7% (+0.6%)</span>
+                </div>
+                <div class="w-full bg-slate-100 rounded-xl h-6 overflow-hidden flex">
+                  <div class="bg-amber-500 h-6 flex items-center px-3 text-white text-xs font-bold rounded-xl" style="width: 82%;">31.7%</div>
+                </div>
+              </div>
+            </div>
+
+            <p class="text-xs text-slate-500">
+              在總體重減去 5.7 kg 的同時提升骨骼肌比例，代表減去的幾乎全為脂肪與水分，基礎代謝保持在 1506 kcal 高水準。
+            </p>
+          </div>
+
+          <!-- Carolyn Skeletal Muscle Card -->
+          <div class="bg-white border border-slate-200/90 rounded-3xl p-6 sm:p-8 shadow-sm space-y-5">
+            <div class="flex justify-between items-center">
+              <div>
+                <span class="text-xs font-bold text-amber-700 bg-amber-50 px-2.5 py-1 rounded-md">👩 Carolyn 骨骼肌率</span>
+                <h4 class="text-2xl font-black text-slate-900 mt-2">23.8% ➔ 24.4%</h4>
+              </div>
+              <span class="text-sm font-black text-amber-600 bg-amber-50 px-3 py-1.5 rounded-xl border border-amber-200">💪 +0.6%</span>
+            </div>
+
+            <div class="space-y-3">
+              <div>
+                <div class="flex justify-between text-xs font-semibold text-slate-500 mb-1">
+                  <span>07/30 初始骨骼肌率</span>
+                  <span class="text-slate-700 font-bold">23.8%</span>
+                </div>
+                <div class="w-full bg-slate-100 rounded-xl h-6 overflow-hidden flex">
+                  <div class="bg-slate-400 h-6 flex items-center px-3 text-white text-xs font-bold rounded-xl" style="width: 65%;">23.8%</div>
+                </div>
+              </div>
+
+              <div>
+                <div class="flex justify-between text-xs font-semibold text-slate-500 mb-1">
+                  <span>09/03 第5週骨骼肌率</span>
+                  <span class="text-amber-500 font-bold">24.3% (+0.5%)</span>
+                </div>
+                <div class="w-full bg-slate-100 rounded-xl h-6 overflow-hidden flex">
+                  <div class="bg-amber-400 h-6 flex items-center px-3 text-white text-xs font-bold rounded-xl" style="width: 70%;">24.3%</div>
+                </div>
+              </div>
+
+              <div>
+                <div class="flex justify-between text-xs font-semibold text-slate-500 mb-1">
+                  <span>09/12 結算骨骼肌率</span>
+                  <span class="text-amber-600 font-bold">24.4% (+0.6%)</span>
+                </div>
+                <div class="w-full bg-slate-100 rounded-xl h-6 overflow-hidden flex">
+                  <div class="bg-amber-500 h-6 flex items-center px-3 text-white text-xs font-bold rounded-xl" style="width: 72%;">24.4%</div>
+                </div>
+              </div>
+            </div>
+
+            <p class="text-xs text-slate-500">
+              女性肌肉合成天生較為困難，Carolyn 能在 45 天內持續爬升至 24.4%，代表飲食中的蛋白質吸收利用率極佳！
+            </p>
+          </div>
+
+        </div>
+      </section>
+
+    </div>
+
+    <!-- ================= VIEW 2: COMPARE SCORECARD ================= -->
+    <section id="section-compare" class="space-y-6 hidden">
+      <div class="bg-white border border-slate-200/90 rounded-3xl p-6 sm:p-8 shadow-sm">
+        <h2 class="text-xl font-black text-slate-900 mb-6">👥 Rich 與 Carolyn 45 天雙人結算成績單</h2>
         <div class="overflow-x-auto">
           <table class="w-full text-left border-collapse text-xs sm:text-sm">
             <thead>
@@ -505,11 +601,11 @@
       </div>
     </section>
 
-    <!-- ================= HISTORY TAB ================= -->
-    <section id="view-history" class="space-y-6 hidden">
-      <div class="bg-white border border-slate-200/80 rounded-3xl p-6 sm:p-8 shadow-sm space-y-6">
+    <!-- ================= VIEW 3: HISTORY TOTAL TABLE ================= -->
+    <section id="section-history" class="space-y-6 hidden">
+      <div class="bg-white border border-slate-200/90 rounded-3xl p-6 sm:p-8 shadow-sm space-y-6">
         <div>
-          <h2 class="text-lg sm:text-xl font-bold text-slate-900">📅 45 天歷程數據總表</h2>
+          <h2 class="text-xl font-black text-slate-900">📅 45 天歷程數據總表</h2>
           <p class="text-xs sm:text-sm text-slate-500 mt-1">完整記錄每週階段性成果與里程碑</p>
         </div>
 
@@ -577,31 +673,47 @@
   </div>
 
   <script>
-    function switchTab(tab) {
-      // Views
-      document.getElementById('view-rich').classList.toggle('hidden', tab !== 'rich');
-      document.getElementById('view-carolyn').classList.toggle('hidden', tab !== 'carolyn');
-      document.getElementById('view-compare').classList.toggle('hidden', tab !== 'compare');
-      document.getElementById('view-history').classList.toggle('hidden', tab !== 'history');
+    // Main View Switching
+    function switchMainView(mode) {
+      document.getElementById('section-charts').classList.toggle('hidden', mode !== 'charts');
+      document.getElementById('section-compare').classList.toggle('hidden', mode !== 'compare');
+      document.getElementById('section-history').classList.toggle('hidden', mode !== 'history');
 
-      // Tab Buttons
-      const tabRich = document.getElementById('tab-rich');
-      const tabCarolyn = document.getElementById('tab-carolyn');
-      const tabCompare = document.getElementById('tab-compare');
-      const tabHistory = document.getElementById('tab-history');
+      const btnCharts = document.getElementById('view-mode-charts');
+      const btnCompare = document.getElementById('view-mode-compare');
+      const btnHistory = document.getElementById('view-mode-history');
 
-      const tabs = [
-        { el: tabRich, name: 'rich' },
-        { el: tabCarolyn, name: 'carolyn' },
-        { el: tabCompare, name: 'compare' },
-        { el: tabHistory, name: 'history' }
+      [
+        { el: btnCharts, name: 'charts' },
+        { el: btnCompare, name: 'compare' },
+        { el: btnHistory, name: 'history' }
+      ].forEach(b => {
+        b.el.className = b.name === mode 
+          ? 'nav-btn-active px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all whitespace-nowrap' 
+          : 'nav-btn-inactive px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all whitespace-nowrap';
+      });
+    }
+
+    // Sub-tab Switching for Charts
+    function switchSubTab(sub) {
+      document.getElementById('panel-weight').classList.toggle('hidden', sub !== 'weight');
+      document.getElementById('panel-fat').classList.toggle('hidden', sub !== 'fat');
+      document.getElementById('panel-visceral').classList.toggle('hidden', sub !== 'visceral');
+      document.getElementById('panel-muscle').classList.toggle('hidden', sub !== 'muscle');
+
+      const subTabs = [
+        { id: 'subtab-weight', name: 'weight' },
+        { id: 'subtab-fat', name: 'fat' },
+        { id: 'subtab-visceral', name: 'visceral' },
+        { id: 'subtab-muscle', name: 'muscle' }
       ];
 
-      tabs.forEach(t => {
-        if (t.name === tab) {
-          t.el.className = 'tab-active px-5 py-3 text-sm font-semibold transition-all whitespace-nowrap';
+      subTabs.forEach(t => {
+        const el = document.getElementById(t.id);
+        if (t.name === sub) {
+          el.className = 'subnav-btn-active flex-1 py-3 px-3 rounded-xl text-xs sm:text-sm font-bold flex items-center justify-center gap-2 transition-all';
         } else {
-          t.el.className = 'tab-inactive px-5 py-3 text-sm font-semibold transition-all whitespace-nowrap';
+          el.className = 'subnav-btn-inactive flex-1 py-3 px-3 rounded-xl text-xs sm:text-sm font-bold flex items-center justify-center gap-2 transition-all';
         }
       });
     }
