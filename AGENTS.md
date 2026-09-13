@@ -53,7 +53,7 @@ Rich 與 Carolyn 雙人健康管理 45 天計畫。核心目標是在 45 天內�
 | 層級 | 平台 | 位置 | 讀取時機 |
 |------|------|------|---------|
 | L1 | 本地（GDrive） | `AGENTS.md`＋`handoff.md` | 每個 session |
-| L2 | GitHub | https://github.com/garfiwang/health-management-45days (私有) | 指定時 |
+| L2 | GitHub | https://github.com/garfiwang/health-management-45days (公開，GitHub Pages: https://garfiwang.github.io/health-management-45days/) | 指定時 |
 | L3 | Obsidian | `secondbrain/[Project] 健管45天/專案工作流程.md` | 有需要時 |
 
 ## 工作約定
