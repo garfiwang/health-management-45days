@@ -42,6 +42,7 @@ Rich 與 Carolyn 雙人健康管理 45 天計畫。核心目標是在 45 天內�
 ├── slimming_day1_menu.md          # 纖體日 Day 1 示範菜單
 ├── day2_diet_menu.md              # 纖體日 Day 2 示範菜單
 ├── protein_day2_menu.md           # 蛋白日 Day 2 示範菜單
+├── supplements_info.md            # 保健食品與營養補充品規格資訊
 └── profiles/                      # 成員詳細個人資料
     ├── Rich.md                    # Rich 的初始數據與目標
     └── Carolyn.md                 # Carolyn 的初始數據與目標
