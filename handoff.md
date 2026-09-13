@@ -13,18 +13,20 @@
    - **Carolyn（2026-09-12 結算）**：體重 **50.9 kg**（累減 **2.1 kg**，總目標達成率 **79.2%**）、體脂率 **30.4%**（下降 **1.8%**）、骨骼肌率 **24.4%**（上升 **+0.6%**）、基礎代謝 **1125 kcal**、身體年齡 **48 歲**（年輕 1 歲）、內臟脂肪 **4**（下降 1 級）、BMI **21.7**。已同步更新至 `profiles/Carolyn.md` 與 `progress_tracking.md`。
 4. 全專案已確立並寫入「嚴禁腦補」核心規則。
 5. 新增保健食品與營養補充品規格記錄（`supplements_info.md`，包含蛋白素、卵磷脂、BodyKey 香蕉、大研生醫魚油）。
+6. 完成健管 45 天成果視覺化網頁建置（`index.html`），並已 commit & push 至 GitHub `main` 分支。
 
 ## 🚦 目前狀態
-已完成 Rich 與 Carolyn 雙人 45 天 9/12 結算數據更新與建檔（`profiles/`、`progress_tracking.md`）。
+已完成 `index.html` 網頁建置與 GitHub 程式庫同步。
 
 ## ➡️ 下一步
-1. 嚴格依據使用者指示進行結案成果驗收與維持期計畫。
-2. 待使用者提供進一步維持期菜單或指引時，100% 如實記錄。
+1. 確認 GitHub Pages 發布設定（目前 repo 為 Private，若要開啟 GitHub Pages 免費版需將 Visibility 切換為 Public，或由 GitHub Pro/Team 方案啟用）。
+2. 待使用者指示進行後續維持期飲食與運動計畫規劃。
 
 ## 🕐 最後更新
-- 時間：2026-09-13 16:56
+- 時間：2026-09-13 17:12
 - 更新者：Antigravity @ macOS
-- Git push：✅ 已同步雙人 9/12 結算數據
+- Git push：✅ 已同步 index.html 與最新交接紀錄
+
 
 
 
