@@ -16,16 +16,17 @@
 6. 完成健管 45 天成果視覺化網頁建置（`index.html`），並已 commit & push 至 GitHub `main` 分支。
 
 ## 🚦 目前狀態
-已將 GitHub Repository 設為 Public 並正式成功啟用 GitHub Pages（網址：`https://garfiwang.github.io/health-management-45days/`），網頁已具備體重、體脂、內臟脂肪、骨骼肌率 4 大子分頁圖表切換與雙人總成績單。
+已將 GitHub Repository 設為 Public 並啟用 GitHub Pages（網址：`https://garfiwang.github.io/health-management-45days/`），網頁已具備 6 大子分頁（體重變化、體脂變化、內臟脂肪、骨骼肌率、Rich 數據統計表、Carolyn 數據統計表）以及雙人總成績單與歷程總表。
 
 ## ➡️ 下一步
 1. 嚴格依據使用者指示進行結案成果驗收與維持期計畫。
 2. 待使用者提供進一步維持期菜單或指引時，100% 如實記錄。
 
 ## 🕐 最後更新
-- 時間：2026-09-13 17:18
+- 時間：2026-09-24 00:32
 - 更新者：Antigravity @ macOS
-- Git push：✅ 已啟用 GitHub Pages 並推送最新 4 大子分頁 index.html
+- Git push：✅ 已同步最新 6 大子分頁 index.html
+
 
 
 
