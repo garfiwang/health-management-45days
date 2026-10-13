@@ -21,8 +21,8 @@ Rich 與 Carolyn 雙人健康管理 45 天計畫。核心目標是在 45 天內�
 ## 目標與路線圖
 - [x] 階段一：專案初始化與成員資料建檔（Rich & Carolyn）
 - [x] 階段二：飲食、運動與熱量赤字策略規劃 (`energy_deficit_plan.md`)
-- [x] 階段三：45 天進度追蹤與每週數據審視 (`progress_tracking.md`，目前已推至第 6 週)
-- [ ] 階段四：結案成果驗收與維持期計畫
+- [x] 階段三：45 天進度追蹤與每週數據審視 (`progress_tracking.md`，已完成 45 天數據結算)
+- [x] 階段四：結案成果驗收與維持期計畫（完成 45 天雙人成果驗收與視覺化網頁發布）
 
 ## 資料夾結構
 ```
@@ -30,19 +30,24 @@ Rich 與 Carolyn 雙人健康管理 45 天計畫。核心目標是在 45 天內�
 ├── AGENTS.md                      # 專案藍圖與成員總覽
 ├── handoff.md                     # 跨 session 交接紀錄檔
 ├── progress_tracking.md           # 45 天數據追蹤與每週成果表
+├── index.html                     # 成果視覺化儀表板網頁 (GitHub Pages)
 ├── energy_deficit_plan.md         # 熱量赤字與運動強度策略規劃
 ├── japan_restaurant_dining_guide.md # 日本旅遊外食飲食指南
 ├── diet_plan_week1.md             # 第一週飲食與營養補充計畫
 ├── diet_plan_week2.md             # 第二週飲食與營養補充計畫
 ├── diet_plan_week3.md             # 第三週飲食與營養補充計畫
-├── diet_plan_week4.md             # 第四週飲食與營養補充計畫（蛋奶素）
+├── diet_plan_week4.md             # 第四週飲食與營養補充計畫（6天纖體日+1天蛋白日）
 ├── diet_plan_week5.md             # 第五週飲食與營養補充計畫（新陳代謝日）
 ├── diet_plan_week6.md             # 第六週飲食與營養補充計畫（6天新陳代謝日+1天蛋白日）
 ├── diet_plan_week7.md             # 第七週飲食與營養補充計畫（新陳代謝日 3天：四、五、六）
+├── diet_menu_week1_to_week7.md    # 第一週至第七週完整飲食菜單總彙整
 ├── slimming_day1_menu.md          # 纖體日 Day 1 示範菜單
 ├── day2_diet_menu.md              # 纖體日 Day 2 示範菜單
 ├── protein_day2_menu.md           # 蛋白日 Day 2 示範菜單
 ├── supplements_info.md            # 保健食品與營養補充品規格資訊
+├── 健管45成果-王執定.pptx          # Rich 45 天結案簡報
+├── 健管45成果-許雅雯.pptx          # Carolyn 45 天結案簡報
+├── 健管45成果範本.pptx             # 成果簡報公版範本
 └── profiles/                      # 成員詳細個人資料
     ├── Rich.md                    # Rich 的初始數據與目標
     └── Carolyn.md                 # Carolyn 的初始數據與目標
