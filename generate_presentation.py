@@ -128,12 +128,9 @@ def create_presentation():
     p.font.color.rgb = RGBColor(203, 213, 225)
 
     slide1.notes_slide.notes_text_frame.text = (
-        "【開場｜預計 45 秒】\n"
-        "大家好，我是 Rich 王執定。\n"
-        "如果 45 天前有人跟我說：『Rich，45 天後你的腰圍會縮小 8 公分、身體年齡會年輕 6 歲，下午開會再也不會想睡覺。』\n"
-        "我一定會覺得他在跟我開玩笑。\n"
-        "因為在 48 歲這個年紀，我們通常已經習慣把『體重往上、體力往下、肚子變大』當成中年無法逆轉的宿命。\n"
-        "今天，我想用 8 分鐘的時間，跟大家分享這 45 天我走過的『英雄旅程』。這不只是一份減重成績單，而是一場重新奪回身體主導權的深刻冒險。"
+        "【開場｜預計 30 秒】\n"
+        "大家好，我是 Rich。\n"
+        "今天要來和大家分享 45 天的蛻變歷程。"
     )
 
     # ==========================================
@@ -141,7 +138,7 @@ def create_presentation():
     # ==========================================
     slide2 = prs.slides.add_slide(blank_layout)
     set_slide_background(slide2, IMG_CONTENT, C_LIGHT_BG)
-    add_header(slide2, "一", "平凡世界", "48 歲的日常：那條不知不覺走上的「下坡路」", "我們總把衰老當成理所當然，其實那是身體在無聲求救")
+    add_header(slide2, "一", "平凡世界", "朝五晚九的日常：不知不覺走上的「咖啡滑坡」", "剛退伍能拚到半夜，如今喝三杯咖啡還爬不起來")
 
     card_w = Inches(3.64)
     card_h = Inches(4.3)
@@ -154,13 +151,13 @@ def create_presentation():
     tf = tb.text_frame
     tf.word_wrap = True
     p = tf.paragraphs[0]
-    p.text = "01. 緊繃的警訊"
+    p.text = "01. 朝五晚九的節奏"
     p.font.bold = True
     p.font.size = Pt(20)
     p.font.color.rgb = C_PRIMARY
     p.space_after = Pt(16)
     p = tf.add_paragraph()
-    p.text = "• 體重 68.7 kg，腰圍 90 cm\n• 褲子尺碼默默往上加一號\n• 每一條皮帶都扣到最後一格\n• 內臟脂肪悄悄飆到 9"
+    p.text = "• 創立 BNI 長輝分會、輔導金佑分會\n• 清晨 5 點早起開會，白天整理財經資料\n• 下午拜訪客戶諮詢、演講\n• 晚上應酬飯局，天天忙到 9 點"
     p.font.size = Pt(16)
     p.font.color.rgb = C_TEXT_DARK
 
@@ -169,13 +166,13 @@ def create_presentation():
     tf = tb.text_frame
     tf.word_wrap = True
     p = tf.paragraphs[0]
-    p.text = "02. 昏沉的日常"
+    p.text = "02. 體力的殘酷滑坡"
     p.font.bold = True
     p.font.size = Pt(20)
     p.font.color.rgb = C_AMBER
     p.space_after = Pt(16)
     p = tf.add_paragraph()
-    p.text = "• 午餐後必定嚴重昏睡\n• 精神不濟，靠咖啡硬撐\n• 爬幾層樓梯就氣喘吁吁\n• 血壓浮動來到 140/100"
+    p.text = "• 退伍時：拚到半夜 12 點，隔天 8 點準時開會\n• 30 歲：早上需要 1 杯咖啡提神\n• 40 歲：喝到 3 杯咖啡還不夠\n• 甚至睡過頭、早上爬不起來！"
     p.font.size = Pt(16)
     p.font.color.rgb = C_TEXT_DARK
 
@@ -184,24 +181,25 @@ def create_presentation():
     tf = tb.text_frame
     tf.word_wrap = True
     p = tf.paragraphs[0]
-    p.text = "03. 慣性的自我安慰"
+    p.text = "03. 鐵齒第一心態"
     p.font.bold = True
     p.font.size = Pt(20)
     p.font.color.rgb = C_TEXT_MUTED
     p.space_after = Pt(16)
     p = tf.add_paragraph()
-    p.text = "• 『大家到了這個年紀都這樣』\n• 『男生有小肚子很正常』\n• 『工作這麼忙，吃點好的是犒賞』\n• 逐漸對身體失去掌控感"
+    p.text = "• 聽見名人過勞猝死新聞...\n• 心想：『不用休息啦！』\n• 『我身體好、我家基因那麼健康』\n• 『我平常都有做好事、積福報！』"
     p.font.size = Pt(16)
     p.font.color.rgb = C_TEXT_DARK
 
     slide2.notes_slide.notes_text_frame.text = (
-        "【第一幕・平凡世界｜預計 50 秒】\n"
-        "每段英雄旅程的起點，都是一個我們習以為常的『平凡世界』。\n"
-        "在 45 天前，我的日常生活是什麼樣子？\n"
-        "48 歲，體重 68.7 公斤，腰圍達到了 90 公分（已經跨過男性健康警戒線），內臟脂肪高達 9。\n"
-        "每天中午吃完飯，下午兩點開會時眼皮沉重得像掛了鉛塊，不喝大杯黑咖啡根本撐不住；血壓更經常飆到 140/100 mmHg。\n"
-        "最可怕的不是這些數字，而是我的心態。當時我跟很多人一樣，心裡想著：『沒辦法啊，年過四十代謝就是變差嘛，大家不都這樣？』\n"
-        "我們習慣把身體發出的紅燈訊號，當成了歲月的必然。直到那個轉折點出現。"
+        "【第一幕・平凡世界｜預計 60 秒】\n"
+        "別人都是朝九晚五，而我平常的工作是「朝五晚九」。\n"
+        "什麼叫做朝五晚九呢？大家有聽過 BNI 商會嗎？應該有聽過吧。BNI 是不是都要很早起床？沒有錯。\n"
+        "我有兩個 BNI 商會，一個是我自己創立的長輝分會，另一個是我輔導的金佑分會。所以我平常都很早起來開會，開完會之後要整理財經資料，下午要拜訪客戶或是接受客戶諮詢，有的時候會有演講，晚上也常常會有應酬和飯局。\n"
+        "所以 可能5點要起床，忙到晚上九點。\n"
+        "剛退伍的時候，可以拜訪客戶到晚上 12 點，第二天早上 8 點一樣準時進公司開會。\n"
+        "到了 30 歲以後，早上就會需要喝一杯咖啡來提神。\n"
+        "到了 40 歲以後，喝一杯咖啡可能不夠了，要喝到三杯咖啡，還會睡過頭爬不起來。"
     )
 
     # ==========================================
@@ -209,7 +207,7 @@ def create_presentation():
     # ==========================================
     slide3 = prs.slides.add_slide(blank_layout)
     set_slide_background(slide3, IMG_CONTENT, C_LIGHT_BG)
-    add_header(slide3, "二", "冒險召喚", "鏡子前的靈魂拷問：我要這樣踏入 50 歲嗎？", "不是外在強迫，而是內心深處被徹底敲醒的時刻")
+    add_header(slide3, "二", "冒險召喚", "身體的兩記重擊：痛風發作與血壓飆破 160", "當「積福報」擋不住身體求救，才發現盲目 168 是玩命")
 
     add_card(slide3, Inches(0.8), Inches(2.2), Inches(5.6), Inches(4.3))
     add_card(slide3, Inches(6.8), Inches(2.2), Inches(5.7), Inches(4.3))
@@ -218,13 +216,13 @@ def create_presentation():
     tf = tb.text_frame
     tf.word_wrap = True
     p = tf.paragraphs[0]
-    p.text = "⚡ 兩記敲醒我的重拳"
+    p.text = "⚡ 警告一：痛風半夜突襲"
     p.font.bold = True
     p.font.size = Pt(22)
     p.font.color.rgb = C_RED
-    p.space_after = Pt(18)
+    p.space_after = Pt(16)
     p = tf.add_paragraph()
-    p.text = "1. 健檢報告上的紅字警訊：\n   血壓高標、腰圍過粗，這不是老，是病態代謝的預警！\n\n2. 貴人推薦人 江沛璇 的當頭棒喝：\n   『Rich，身體是你打拼的本錢，如果現在不給身體 45 天，五年後的你拿什麼支撐夢想？』"
+    p.text = "• 警訊爆發：睡覺半夜膝蓋突然劇痛，痛到發瘋！\n\n• 答案揭曉：『痛風』！\n\n• 內心震撼與鐵齒：\n  『不可能！我那麼健康，我家的基因那麼好，我平常都有做好事、積福報，我怎麼可能有痛風？！』"
     p.font.size = Pt(16)
     p.font.color.rgb = C_TEXT_DARK
 
@@ -232,24 +230,28 @@ def create_presentation():
     tf = tb.text_frame
     tf.word_wrap = True
     p = tf.paragraphs[0]
-    p.text = "🎯 關鍵轉念與選擇"
+    p.text = "⚡ 警告二：盲目 168 送急診"
     p.font.bold = True
     p.font.size = Pt(22)
-    p.font.color.rgb = C_PRIMARY
-    p.space_after = Pt(18)
+    p.font.color.rgb = C_AMBER
+    p.space_after = Pt(16)
     p = tf.add_paragraph()
-    p.text = "• 痛點：我不想在 50 歲時，每天靠吃降血壓藥過日子。\n\n• 渴望：我想重新穿回合身的西裝，我想讓自己充滿活力，我想陪家人走得更長久。\n\n• 決定：這一次，不是隨便試試看的減肥，而是認真給身體一次重開機的機會！"
+    p.text = "• 腰圍變寬想燃脂：早餐不吃，猛灌黑咖啡！\n\n• 慘劇發生：頭暈目眩、心悸、全身提不上力！\n\n• 送醫一量：血壓直接飆破 160！\n\n• 依然鐵齒：\n  『不用健管啦！我身體好、基因好、有積福報，多喝水運動就好了啦！』"
     p.font.size = Pt(16)
     p.font.color.rgb = C_TEXT_DARK
 
     slide3.notes_slide.notes_text_frame.text = (
-        "【第二幕・冒險召喚｜預計 45 秒】\n"
-        "冒險的召喚往往來自一次強烈的震撼。\n"
-        "當時看著健檢報告上醒目的紅字，摸著緊繃到快炸開的褲頭，我的推薦人沛璇跟我說了一句話，深深刺進我心裡：\n"
-        "『Rich，身體是你一切事業與家庭的基地。如果連 45 天你都不願意投資給自己，五年後你要用什麼來面對人生？』\n"
-        "那天晚上我看著鏡子裡的自己，我問自己：『我真的甘心讓自己就這樣步入 50 歲嗎？』\n"
-        "我不想以後每天出門要吞降血壓藥，我不想每次拍照都只能躲在人群最後面縮小腹。\n"
-        "那一刻，我聽見了身體的召喚——我必須做出改變。"
+        "【第二幕・冒險召喚｜預計 75 秒】\n"
+        "這時候你就會常常聽到新聞報導很多名人突然猝死，有的是因為過勞，最近也有很多是他平時不抽菸、不喝酒、很養生，但還是會出事情。聽到了這些新聞，會不會讓你覺得我應該要休息一下？我應該要來做做健管。\n"
+        "不會~~因為我覺得我的身體很好呀，我家的基因很健康，我平常都有做好事、累積福報，所以我不會像他們這些人一樣。\n"
+        "後來我的身體給我了一個警告：晚上睡覺半夜膝蓋會突然痛起來。\n"
+        "那種痛會讓你痛到發瘋。請問大家，你覺得是什麼毛病？ 痛風\n"
+        "不可能，我那麼健康，我家的基因那麼好，我平常都有做好事、積福報，我怎麼可能有痛風？\n"
+        "後來我的身體再給了我一個警告。\n"
+        "因為我的腰圍越來越寬廣，我就想說應該要來執行 168，所以我不吃早餐，早上就喝黑咖啡，想說可以燃燒脂肪。\n"
+        "結果有一天早上頭暈目眩、心跳加速，整個身體提不上力，趕快去醫院檢查，結果一量血壓飆到 160\n"
+        "到了這個時候，你覺得是不是應該要讓身體休息一下，要來做做健管，重新讓身體修復？\n"
+        "不用啦~~我那麼健康，我家的基因那麼好，我平常都有做好事、積福報，我多喝水，多上健身房運動就可以了啦"
     )
 
     # ==========================================
