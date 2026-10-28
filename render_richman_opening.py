@@ -1,7 +1,7 @@
 import os
 from PIL import Image, ImageDraw, ImageFont, ImageFilter
 
-def render_richman_opening_enlarged():
+def render_richman_opening_super_large():
     bg_path = "generated/slide01_richman_ip_opening_20261029_015510.png"
     if not os.path.exists(bg_path):
         print(f"Error: {bg_path} not found")
@@ -10,22 +10,28 @@ def render_richman_opening_enlarged():
     base_img = Image.open(bg_path).convert("RGBA")
     w, h = base_img.size # 1536 x 1024
 
-    # 1. Left-to-Right Dark Scrim Gradient (Left 58% for large text readability)
+    # 1. Enhanced Dark Scrim Gradient
+    # Extend fade_end to 60% of width, and ensure lower-left has deep contrast
     gradient = Image.new("RGBA", (w, h), (0, 0, 0, 0))
-    fade_end = int(w * 0.58) # Smoothly fades out before Richman
+    fade_end = int(w * 0.60) # ~921px
 
     grad_pixels = gradient.load()
     for x in range(w):
         if x < fade_end:
             t = x / fade_end
-            # Smoothstep curve: 3*t^2 - 2*t^3
+            # smoothstep: 3*t^2 - 2*t^3
             factor = 1.0 - (3 * (t**2) - 2 * (t**3))
-            alpha = int(225 * factor) # Max 225 for high contrast behind big text
+            base_alpha = 245 * factor # deeper dark on left (max 245)
         else:
-            alpha = 0
+            base_alpha = 0
             
         for y in range(h):
-            grad_pixels[x, y] = (10, 18, 30, alpha)
+            # Give extra dark backing to bottom area where stats text sits
+            if y > int(h * 0.55):
+                alpha = int(min(255, base_alpha * 1.08))
+            else:
+                alpha = int(base_alpha)
+            grad_pixels[x, y] = (8, 14, 24, alpha)
 
     comp_img = Image.alpha_composite(base_img, gradient)
 
@@ -37,21 +43,32 @@ def render_richman_opening_enlarged():
 
     font_path = "/System/Library/Fonts/STHeiti Medium.ttc"
     
-    # Enlarge 3 levels (大幅放大 3 級)
-    # Previous: eng 20 -> 28, title 76 -> 110, sub 34 -> 48, author 24 -> 34, stats 20 -> 26
+    # 再放大兩級 (Enlarge 2 more levels)
+    # Title: 110 -> 142 pt (Massive Keynote Impact)
+    # Sub: 48 -> 58 pt
+    # Author: 34 -> 42 pt
+    # Stats: 26 -> 32 pt (High-contrast pure white/cyan)
+    # Tag: 28 -> 34 pt
     try:
-        font_eng = ImageFont.truetype(font_path, 28)
-        font_title = ImageFont.truetype(font_path, 110)
-        font_sub = ImageFont.truetype(font_path, 48)
-        font_author = ImageFont.truetype(font_path, 34)
-        font_stats = ImageFont.truetype(font_path, 26)
+        font_eng = ImageFont.truetype(font_path, 34)
+        font_title = ImageFont.truetype(font_path, 142)
+        font_sub = ImageFont.truetype(font_path, 58)
+        font_author = ImageFont.truetype(font_path, 42)
+        font_stats = ImageFont.truetype(font_path, 32)
+        font_stats_bold = ImageFont.truetype(font_path, 34)
     except Exception as e:
         print("Font error:", e)
-        font_eng = font_title = font_sub = font_author = font_stats = ImageFont.load_default()
+        font_eng = font_title = font_sub = font_author = font_stats = font_stats_bold = ImageFont.load_default()
 
-    # Layout Position (Left Margin, centered vertically)
-    start_x = int(w * 0.08) # x = ~123
-    start_y = int(h * 0.16) # y = ~164 (raised slightly to fit massive typography)
+    # Layout Coordinates
+    start_x = int(w * 0.075) # x = ~115
+    y_eng = int(h * 0.12)    # y = ~123
+
+    y_title1 = y_eng + 65    # y = 188
+    y_title2 = y_title1 + 160 # y = 348
+    y_sub = y_title2 + 185   # y = 533
+    y_author = y_sub + 115   # y = 648
+    y_stats = y_author + 80   # y = 728
 
     eng_tag = "T H E   H E R O ' S   J O U R N E Y"
     title_line1 = "45 天的"
@@ -60,38 +77,41 @@ def render_richman_opening_enlarged():
     author_text = "主講人：王執定（Rich） ｜ 金融男神"
     stats_text = "45 天累減 5.7kg ｜ 腰圍大瘦 8cm ｜ 身體年齡年輕 6 歲"
 
-    y_eng = start_y
-    y_title1 = y_eng + 55
-    y_title2 = y_title1 + 130
-    y_sub = y_title2 + 155
-    y_author = y_sub + 95
-    y_stats = y_author + 55
-
-    # Cinematic Drop Shadow for Big Typography
+    # Cinematic Strong Drop Shadow
     s_offset = 4
-    s_color = (0, 0, 0, 180)
+    s_color = (0, 0, 0, 210) # deeper shadow for maximum legibility
     draw_shadow.text((start_x + s_offset, y_eng + s_offset), eng_tag, font=font_eng, fill=s_color)
     draw_shadow.text((start_x + s_offset, y_title1 + s_offset), title_line1, font=font_title, fill=s_color)
     draw_shadow.text((start_x + s_offset, y_title2 + s_offset), title_line2, font=font_title, fill=s_color)
     draw_shadow.text((start_x + s_offset, y_sub + s_offset), sub_title, font=font_sub, fill=s_color)
     draw_shadow.text((start_x + s_offset, y_author + s_offset), author_text, font=font_author, fill=s_color)
     draw_shadow.text((start_x + s_offset, y_stats + s_offset), stats_text, font=font_stats, fill=s_color)
-    shadow_layer = shadow_layer.filter(ImageFilter.GaussianBlur(radius=5))
+    shadow_layer = shadow_layer.filter(ImageFilter.GaussianBlur(radius=6))
 
-    # Forefront Big Typography
-    draw_text.text((start_x, y_eng), eng_tag, font=font_eng, fill=(52, 211, 153, 255)) # Emerald Green
-    draw_text.text((start_x, y_title1), title_line1, font=font_title, fill=(255, 255, 255, 255)) # Pure Bold White
+    # Forefront Typography
+    # 1. Tag (Emerald Neon Green)
+    draw_text.text((start_x, y_eng), eng_tag, font=font_eng, fill=(52, 211, 153, 255))
+    
+    # 2. Main Title (Crisp Pure White 142pt)
+    draw_text.text((start_x, y_title1), title_line1, font=font_title, fill=(255, 255, 255, 255))
     draw_text.text((start_x, y_title2), title_line2, font=font_title, fill=(255, 255, 255, 255))
-    draw_text.text((start_x, y_sub), sub_title, font=font_sub, fill=(251, 191, 36, 255)) # Amber Gold
-    draw_text.text((start_x, y_author), author_text, font=font_author, fill=(241, 245, 249, 255)) # Slate White
-    draw_text.text((start_x, y_stats), stats_text, font=font_stats, fill=(148, 163, 184, 255)) # Muted Silver
+    
+    # 3. Subtitle (Vibrant Nutrilite Amber Sunburst 58pt)
+    draw_text.text((start_x, y_sub), sub_title, font=font_sub, fill=(251, 191, 36, 255))
+    
+    # 4. Author line (Bright Crisp White 42pt)
+    draw_text.text((start_x, y_author), author_text, font=font_author, fill=(255, 255, 255, 255))
+    
+    # 5. Bottom Stats: ADJUSTED TO HIGH-CONTRAST LUMINOUS ICE-CYAN / CRISP WHITE
+    # Instead of dull grey, use glowing crisp light cyan-white (224, 242, 254) with 100% opacity
+    draw_text.text((start_x, y_stats), stats_text, font=font_stats, fill=(224, 242, 254, 255))
 
     final = Image.alpha_composite(comp_img, shadow_layer)
     final = Image.alpha_composite(final, text_layer)
 
     out_path = "generated/slide01_richman_ip_opening_preview.png"
     final.convert("RGB").save(out_path, quality=95)
-    print(f"Generated {out_path} with 3-level enlarged typography!")
+    print(f"Generated {out_path} with 2 more levels enlarged typography and high-contrast bottom stats!")
 
 if __name__ == "__main__":
-    render_richman_opening_enlarged()
+    render_richman_opening_super_large()
