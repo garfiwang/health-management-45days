@@ -631,37 +631,46 @@ def create_presentation():
     p = tf11.paragraphs[0]
     p.text = "48 歲，我的人生下半場才剛開始！"
     p.font.name = "Microsoft JhengHei"
-    p.font.size = Pt(22)
+    p.font.size = Pt(20)
     p.font.color.rgb = C_PRIMARY
     p.font.bold = True
-    p.space_after = Pt(16)
+    p.space_after = Pt(14)
 
     p = tf11.add_paragraph()
-    p.text = "「45 天前，我以為我只是在管理體重；\n 45 天後，我發現我贏回了人生的主控權。」"
+    p.text = "「什麼事情都可以放下，唯獨不能放下筷子；\n 什麼事情都可以失去，唯獨不能失去健康。」"
     p.font.name = "Microsoft JhengHei"
-    p.font.size = Pt(36)
+    p.font.size = Pt(32)
     p.font.bold = True
+    p.font.color.rgb = C_AMBER
+    p.space_after = Pt(18)
+
+    p = tf11.add_paragraph()
+    p.text = "45 天前，我以為我只是在管理體重；45 天後，我發現我贏回了人生的主控權。"
+    p.font.name = "Microsoft JhengHei"
+    p.font.size = Pt(20)
     p.font.color.rgb = C_TEXT_LIGHT
-    p.space_after = Pt(28)
+    p.space_after = Pt(24)
 
     p = tf11.add_paragraph()
     p.text = "衷心感謝：最佳戰友 Carolyn ｜ 推薦人 江沛璇 ｜ 健管教練 麥淑媛 ｜ 寰宇南京中心全體夥伴"
     p.font.name = "Microsoft JhengHei"
-    p.font.size = Pt(16)
+    p.font.size = Pt(15)
     p.font.color.rgb = RGBColor(148, 163, 184)
-    p.space_after = Pt(12)
+    p.space_after = Pt(10)
 
     p = tf11.add_paragraph()
     p.text = "謝謝大家！祝大家都能找回充滿生命力的自己！"
     p.font.name = "Microsoft JhengHei"
-    p.font.size = Pt(20)
+    p.font.size = Pt(18)
     p.font.bold = True
-    p.font.color.rgb = C_AMBER
+    p.font.color.rgb = C_PRIMARY
 
     slide11.notes_slide.notes_text_frame.text = (
-        "【結尾謝幕｜預計 35 秒】\n"
-        "最後，我想用這句話做總結：\n"
-        "『45 天前，我以為我只是在減重；45 天後，我發現我贏回了人生的主控權。』\n"
+        "【結尾謝幕｜預計 40 秒】\n"
+        "最後，我想用我這 45 天刻在心底的一句話做總結：\n"
+        "『什麼事情都可以放下，唯獨不能放下筷子；什麼事情都可以失去，唯獨不能失去健康。』\n"
+        "健管不是叫我們放下筷子挨餓節食，而是教我們好好拿穩筷子、吃對每一口營養。\n"
+        "因為在這個世界上，任何忙碌都可以先放下，唯有這雙筷子下的健康，是我們一輩子絕對不能失去的底氣！\n"
         "48 歲不是衰老的藉口，而是精準管理生命的黃金起點。\n"
         "特別感謝我的戰友 Carolyn、我的推薦人沛璇、麥淑媛教練，以及這段時間互相激勵的所有夥伴。\n"
         "謝謝大家！願我們每一個人都能做自己生命裡的英雄！"
