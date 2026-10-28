@@ -1,9 +1,15 @@
+import os
 import sys
 import pptx
 from pptx.util import Inches, Pt
 from pptx.enum.text import PP_ALIGN
 from pptx.dml.color import RGBColor
 from pptx.enum.shapes import MSO_SHAPE
+
+# Nutrilite Style Background Images
+IMG_COVER = "generated/nutrilite_cover_sunrise_20261029_004204.png"
+IMG_CONTENT = "generated/nutrilite_content_clean_20261029_004229.png"
+IMG_CRISIS = "generated/nutrilite_crisis_breakthrough_20261029_004253.png"
 
 def create_presentation():
     prs = pptx.Presentation()
@@ -24,16 +30,18 @@ def create_presentation():
     C_TEXT_MUTED = RGBColor(100, 116, 139) # Slate 500
     C_TEXT_LIGHT = RGBColor(255, 255, 255) # White
 
-    def add_bg(slide, color):
-        bg = slide.shapes.add_shape(MSO_SHAPE.RECTANGLE, 0, 0, prs.slide_width, prs.slide_height)
-        bg.fill.solid()
-        bg.fill.fore_color.rgb = color
-        bg.line.fill.background()
-        return bg
+    def set_slide_background(slide, image_path, fallback_color=C_LIGHT_BG):
+        if os.path.exists(image_path):
+            slide.shapes.add_picture(image_path, 0, 0, width=prs.slide_width, height=prs.slide_height)
+        else:
+            bg = slide.shapes.add_shape(MSO_SHAPE.RECTANGLE, 0, 0, prs.slide_width, prs.slide_height)
+            bg.fill.solid()
+            bg.fill.fore_color.rgb = fallback_color
+            bg.line.fill.background()
 
     def add_header(slide, step_num, step_name, title, subtitle=""):
         # Header tag
-        tag_box = slide.shapes.add_textbox(Inches(0.8), Inches(0.5), Inches(11.7), Inches(0.4))
+        tag_box = slide.shapes.add_textbox(Inches(0.8), Inches(0.45), Inches(11.7), Inches(0.4))
         tf_tag = tag_box.text_frame
         tf_tag.word_wrap = True
         tf_tag.margin_left = tf_tag.margin_top = tf_tag.margin_right = tf_tag.margin_bottom = 0
@@ -45,7 +53,7 @@ def create_presentation():
         p_tag.font.color.rgb = C_PRIMARY
 
         # Title
-        title_box = slide.shapes.add_textbox(Inches(0.8), Inches(0.95), Inches(11.7), Inches(0.7))
+        title_box = slide.shapes.add_textbox(Inches(0.8), Inches(0.9), Inches(11.7), Inches(0.7))
         tf_title = title_box.text_frame
         tf_title.word_wrap = True
         tf_title.margin_left = tf_title.margin_top = tf_title.margin_right = tf_title.margin_bottom = 0
@@ -75,22 +83,25 @@ def create_presentation():
     # SLIDE 1: COVER
     # ==========================================
     slide1 = prs.slides.add_slide(blank_layout)
-    add_bg(slide1, C_DARK_BG)
+    set_slide_background(slide1, IMG_COVER, C_DARK_BG)
+
+    # Dark Frosted Container Card for Title
+    add_card(slide1, Inches(0.8), Inches(1.3), Inches(11.733), Inches(4.9), bg_color=RGBColor(15, 23, 42), border_color=C_PRIMARY)
 
     # Accent decorative bar
-    bar = slide1.shapes.add_shape(MSO_SHAPE.RECTANGLE, Inches(0.8), Inches(1.8), Inches(0.15), Inches(3.8))
+    bar = slide1.shapes.add_shape(MSO_SHAPE.RECTANGLE, Inches(1.2), Inches(1.8), Inches(0.15), Inches(3.8))
     bar.fill.solid()
     bar.fill.fore_color.rgb = C_PRIMARY
     bar.line.fill.background()
 
-    tb1 = slide1.shapes.add_textbox(Inches(1.2), Inches(1.8), Inches(11), Inches(3.8))
+    tb1 = slide1.shapes.add_textbox(Inches(1.6), Inches(1.8), Inches(10.5), Inches(3.8))
     tf1 = tb1.text_frame
     tf1.word_wrap = True
 
     p = tf1.paragraphs[0]
-    p.text = "健管 45 天的心得與蛻變"
+    p.text = "健管 45 天的心得與蛻變 ｜ 紐崔萊自然科學實踐"
     p.font.name = "Microsoft JhengHei"
-    p.font.size = Pt(20)
+    p.font.size = Pt(18)
     p.font.color.rgb = C_PRIMARY
     p.font.bold = True
     p.space_after = Pt(14)
@@ -108,7 +119,7 @@ def create_presentation():
     p.font.name = "Microsoft JhengHei"
     p.font.size = Pt(22)
     p.font.color.rgb = RGBColor(148, 163, 184)
-    p.space_after = Pt(28)
+    p.space_after = Pt(26)
 
     p = tf1.add_paragraph()
     p.text = "分享者：王執定（Rich） ｜ 45天減重 5.7kg・腰圍 -8cm・身體年齡 -6歲"
@@ -129,7 +140,7 @@ def create_presentation():
     # SLIDE 2: 平凡世界
     # ==========================================
     slide2 = prs.slides.add_slide(blank_layout)
-    add_bg(slide2, C_LIGHT_BG)
+    set_slide_background(slide2, IMG_CONTENT, C_LIGHT_BG)
     add_header(slide2, "一", "平凡世界", "48 歲的日常：那條不知不覺走上的「下坡路」", "我們總把衰老當成理所當然，其實那是身體在無聲求救")
 
     card_w = Inches(3.64)
@@ -197,7 +208,7 @@ def create_presentation():
     # SLIDE 3: 冒險召喚
     # ==========================================
     slide3 = prs.slides.add_slide(blank_layout)
-    add_bg(slide3, C_LIGHT_BG)
+    set_slide_background(slide3, IMG_CONTENT, C_LIGHT_BG)
     add_header(slide3, "二", "冒險召喚", "鏡子前的靈魂拷問：我要這樣踏入 50 歲嗎？", "不是外在強迫，而是內心深處被徹底敲醒的時刻")
 
     add_card(slide3, Inches(0.8), Inches(2.2), Inches(5.6), Inches(4.3))
@@ -245,7 +256,7 @@ def create_presentation():
     # SLIDE 4: 跨越門檻
     # ==========================================
     slide4 = prs.slides.add_slide(blank_layout)
-    add_bg(slide4, C_LIGHT_BG)
+    set_slide_background(slide4, IMG_CONTENT, C_LIGHT_BG)
     add_header(slide4, "三", "跨越門檻", "簽下 45 天承諾契約：告別舒適圈，這一次不留退路", "跨越門檻最難的不是拒絕美食，而是下定決心「不找藉口」")
 
     add_card(slide4, Inches(0.8), Inches(2.2), Inches(11.7), Inches(4.3))
@@ -291,7 +302,7 @@ def create_presentation():
     # SLIDE 5: 試煉與盟友
     # ==========================================
     slide5 = prs.slides.add_slide(blank_layout)
-    add_bg(slide5, C_LIGHT_BG)
+    set_slide_background(slide5, IMG_CONTENT, C_LIGHT_BG)
     add_header(slide5, "四", "試煉與盟友", "一個人走得快，兩個人走得遠：盟友與教練的力量", "在嚴格的試煉中，是同儕的信任與專業導航讓我們堅持向前")
 
     add_card(slide5, Inches(0.8), Inches(2.2), Inches(5.6), Inches(4.3))
@@ -339,7 +350,7 @@ def create_presentation():
     # SLIDE 6: 最大危機（一）：肌耐力大考驗
     # ==========================================
     slide6 = prs.slides.add_slide(blank_layout)
-    add_bg(slide6, C_LIGHT_BG)
+    set_slide_background(slide6, IMG_CRISIS, C_LIGHT_BG)
     add_header(slide6, "五", "最大危機（一）", "深淵試煉：爬 5 樓雙腿發軟，我是不是把肌肉減掉了？", "體重神速下降的背後，迎來了對體能與心理的最大衝擊")
 
     add_card(slide6, Inches(0.8), Inches(2.2), Inches(11.7), Inches(4.3))
@@ -392,7 +403,7 @@ def create_presentation():
     # SLIDE 7: 最大危機（二）：素食齋戒週
     # ==========================================
     slide7 = prs.slides.add_slide(blank_layout)
-    add_bg(slide7, C_LIGHT_BG)
+    set_slide_background(slide7, IMG_CRISIS, C_LIGHT_BG)
     add_header(slide7, "五", "最大危機（二）", "自律極限：素食齋戒週，在無肉少油中的終極拔河", "當習慣的蛋白質來源全部歸零，靠什麼撐過這場身心風暴？")
 
     add_card(slide7, Inches(0.8), Inches(2.2), Inches(11.7), Inches(4.3))
@@ -445,7 +456,7 @@ def create_presentation():
     # SLIDE 8: 蛻變與寶物（數據篇）
     # ==========================================
     slide8 = prs.slides.add_slide(blank_layout)
-    add_bg(slide8, C_LIGHT_BG)
+    set_slide_background(slide8, IMG_CONTENT, C_LIGHT_BG)
     add_header(slide8, "六", "蛻變與寶物（數據篇）", "45 天真實成績單：數字不會說謊，身體給了最誠實的回饋", "體態脫胎換骨，逆勢增肌減脂！")
 
     # 4 Stat cards
@@ -505,7 +516,7 @@ def create_presentation():
     # SLIDE 9: 蛻變與寶物（生活篇）
     # ==========================================
     slide9 = prs.slides.add_slide(blank_layout)
-    add_bg(slide9, C_LIGHT_BG)
+    set_slide_background(slide9, IMG_CONTENT, C_LIGHT_BG)
     add_header(slide9, "六", "蛻變與寶物（心態篇）", "比體重機數字更珍貴的，是「感官與精力的重生」", "這不只是外表的改變，而是內在生命力的全面升級")
 
     add_card(slide9, Inches(0.8), Inches(2.2), Inches(3.64), Inches(4.3))
@@ -570,7 +581,7 @@ def create_presentation():
     # SLIDE 10: 帶著禮物歸來
     # ==========================================
     slide10 = prs.slides.add_slide(blank_layout)
-    add_bg(slide10, C_LIGHT_BG)
+    set_slide_background(slide10, IMG_CONTENT, C_LIGHT_BG)
     add_header(slide10, "七", "帶著禮物歸來", "把禮物送給現場的你：明天就能啟動的健康行動", "你不需要很厲害才開始，但你需要開始才會變得很厲害")
 
     add_card(slide10, Inches(0.8), Inches(2.2), Inches(5.6), Inches(4.3))
@@ -617,14 +628,17 @@ def create_presentation():
     # SLIDE 11: 英雄謝幕
     # ==========================================
     slide11 = prs.slides.add_slide(blank_layout)
-    add_bg(slide11, C_DARK_BG)
+    set_slide_background(slide11, IMG_COVER, C_DARK_BG)
 
-    bar2 = slide11.shapes.add_shape(MSO_SHAPE.RECTANGLE, Inches(0.8), Inches(1.8), Inches(0.15), Inches(3.8))
+    # Dark Frosted Container Card for Closing
+    add_card(slide11, Inches(0.8), Inches(1.3), Inches(11.733), Inches(4.9), bg_color=RGBColor(15, 23, 42), border_color=C_PRIMARY)
+
+    bar2 = slide11.shapes.add_shape(MSO_SHAPE.RECTANGLE, Inches(1.2), Inches(1.8), Inches(0.15), Inches(3.8))
     bar2.fill.solid()
     bar2.fill.fore_color.rgb = C_PRIMARY
     bar2.line.fill.background()
 
-    tb11 = slide11.shapes.add_textbox(Inches(1.2), Inches(1.8), Inches(11), Inches(4.2))
+    tb11 = slide11.shapes.add_textbox(Inches(1.6), Inches(1.8), Inches(10.5), Inches(3.8))
     tf11 = tb11.text_frame
     tf11.word_wrap = True
 
