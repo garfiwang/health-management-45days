@@ -81,7 +81,7 @@ def main():
 
     # 左下角安全區：文字最低到 y≈640；公仔區 y 660～850、x 110～700
     area_x0, area_x1 = 110, 700
-    doll_h = 168
+    doll_h = 152
     label_gap = 6
     bottom = 850 - 44            # 預留兩行標籤
     slot_w = (area_x1 - area_x0) // 3
