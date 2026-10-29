@@ -1,29 +1,33 @@
 import os
 from PIL import Image, ImageDraw, ImageFont, ImageFilter
 
-def render_slide03_nanobanana():
-    raw_path = "generated/slide03_nanobanana_concept_raw.jpg"
+def render_slide03_nanobanana(raw_path=None):
+    if raw_path is None:
+        raw_path = "generated/slide03_nanobanana_concept_raw.jpg"
+        
     if not os.path.exists(raw_path):
-        print("Missing raw image")
-        return
+        print("Missing raw image:", raw_path)
+        return False
 
     raw_img = Image.open(raw_path).convert("RGBA")
-    rw, rh = raw_img.size # 1376 x 768
+    rw, rh = raw_img.size
 
-    # 1. 精準對齊 16:9
-    # 目標標準 16:9 尺寸：1536 x 864
-    # 目前 1376 x 768，長寬比為 1.7916。標準 16:9 是 1.777778
-    # 768 * (16/9) = 1365.333 -> 左右微修剪 10px (1376 - 1365 = 11px)
-    target_w_src = int(rh * 16 / 9) # 1365
-    crop_x = (rw - target_w_src) // 2
-    cropped_src = raw_img.crop((crop_x, 0, crop_x + target_w_src, rh))
+    # 1. 精準對齊 16:9（1536 x 864）
+    target_w_src = int(rh * 16 / 9)
+    if rw >= target_w_src:
+        crop_x = (rw - target_w_src) // 2
+        cropped_src = raw_img.crop((crop_x, 0, crop_x + target_w_src, rh))
+    else:
+        # 高度裁切
+        target_h_src = int(rw * 9 / 16)
+        crop_y = (rh - target_h_src) // 2
+        cropped_src = raw_img.crop((0, crop_y, rw, crop_y + target_h_src))
 
-    # 高品質放大至 1536 x 864
     w, h = 1536, 864
     base_img = cropped_src.resize((w, h), Image.Resampling.LANCZOS)
     print(f"Resized & Cropped to exact 16:9: {w} x {h}, ratio = {w/h:.6f}")
 
-    # 2. 左側平滑暗角漸層（Smoothstep Scrim），無卡片框線，自然光影融入
+    # 2. 左側平滑暗角漸層（Smoothstep Scrim），無框溶字
     gradient = Image.new("RGBA", (w, h), (0, 0, 0, 0))
     fade_end = int(w * 0.58) # 約 890px
     grad_pixels = gradient.load()
@@ -46,7 +50,7 @@ def render_slide03_nanobanana():
 
     comp_img = Image.alpha_composite(base_img, gradient)
 
-    # 3. 排版文字圖層（大字規範）
+    # 3. 排版文字圖層（依 Rich 要求精準改字）
     text_layer = Image.new("RGBA", (w, h), (0, 0, 0, 0))
     shadow_layer = Image.new("RGBA", (w, h), (0, 0, 0, 0))
     draw_text = ImageDraw.Draw(text_layer)
@@ -55,7 +59,7 @@ def render_slide03_nanobanana():
     font_path = "/System/Library/Fonts/STHeiti Medium.ttc"
     font_eng = ImageFont.truetype(font_path, 32)
     font_title = ImageFont.truetype(font_path, 136)
-    font_sub = ImageFont.truetype(font_path, 52)
+    font_sub = ImageFont.truetype(font_path, 46) # 依 25 字副標優雅縮放
     font_body = ImageFont.truetype(font_path, 28)
 
     start_x = 110
@@ -78,11 +82,11 @@ def render_slide03_nanobanana():
     draw_shadow.text((start_x, y_line2), line2, font=font_title, fill=(0, 0, 0, 240))
     draw_text.text((start_x, y_line2), line2, font=font_title, fill=(255, 255, 255, 255))
 
-    # C. 衝擊副標（紐崔萊琥珀金 52 pt）
-    sub_title = "半夜膝蓋痛到發瘋，自創 168 差點休克"
+    # C. 衝擊副標（改字：血壓飆到 160 心跳加速差點昏倒）
+    sub_title = "半夜膝蓋痛到發瘋，血壓飆到 160 心跳加速差點昏倒"
     y_sub = y_line2 + 180
     draw_shadow.text((start_x, y_sub), sub_title, font=font_sub, fill=(0, 0, 0, 240))
-    draw_text.text((start_x, y_sub), sub_title, font=font_sub, fill=(245, 158, 11, 255))
+    draw_text.text((start_x, y_sub), sub_title, font=font_sub, fill=(245, 158, 11, 255)) # 琥珀金
 
     # D. 現場鐵齒笑點金句（高對比冰晶亮藍白 28 pt）
     joke_text = "「痛風？！不可能！我平常有做好事、積福報，怎麼可能出事？！」"
