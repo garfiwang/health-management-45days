@@ -52,6 +52,7 @@ Rich 與 Carolyn 雙人健康管理 45 天計畫。核心目標是在 45 天內�
 ├── handoff.md                     # 跨 session 交接紀錄檔
 ├── progress_tracking.md           # 45 天數據追蹤與每週成果表
 ├── index.html                     # 成果視覺化儀表板網頁 (GitHub Pages)
+├── presentation_kr.html           # 韓文版手機優先響應式 (RWD) 互動簡報網頁
 ├── energy_deficit_plan.md         # 熱量赤字與運動強度策略規劃
 ├── japan_restaurant_dining_guide.md # 日本旅遊外食飲食指南
 ├── diet_plan_week1.md             # 第一週飲食與營養補充計畫

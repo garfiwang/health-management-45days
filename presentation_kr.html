@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>45일간의 변화의 여정 | 왕집정 (Rich) 건강관리 프레젠테이션</title>
+  
+  <!-- Google Fonts: Noto Sans KR & Pretendard fallback -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-dark: #070b14;
+      --card-bg: rgba(15, 23, 42, 0.85);
+      --card-border: rgba(51, 65, 85, 0.6);
+      --text-white: #ffffff;
+      --text-gold: #f59e0b;
+      --text-cyan: #38bdf8;
+      --text-green: #34d399;
+      --text-iceblue: #e0f2fe;
+      --text-muted: #94a3b8;
+      --accent-red: #ef4444;
+      --accent-purple: #a855f7;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-white);
+      font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      overflow-x: hidden;
+      overflow-y: hidden; /* App-like full slide experience */
+      height: 100vh;
+      height: 100dvh;
+      width: 100vw;
+    }
+
+    /* Top Progress Bar & Header */
+    .header-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 52px;
+      padding: 0 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(7, 11, 20, 0.9);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      z-index: 100;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .brand-title {
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      color: var(--text-gold);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .slide-counter {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-cyan);
+      background: rgba(56, 189, 248, 0.12);
+      padding: 3px 10px;
+      border-radius: 12px;
+      border: 1px solid rgba(56, 189, 248, 0.3);
+    }
+
+    .progress-bar-container {
+      position: fixed;
+      top: 52px;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: rgba(255, 255, 255, 0.1);
+      z-index: 101;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      width: 20%;
+      background: linear-gradient(90deg, #38bdf8, #f59e0b);
+      transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Slider Container */
+    .slider-wrapper {
+      width: 100vw;
+      height: 100vh;
+      height: 100dvh;
+      padding-top: 55px;
+      padding-bottom: 60px;
+      overflow-y: auto;
+      scroll-snap-type: y mandatory;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .slide-section {
+      width: 100vw;
+      min-height: calc(100vh - 115px);
+      min-height: calc(100dvh - 115px);
+      scroll-snap-align: start;
+      scroll-snap-stop: always;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+
+    /* Card Box */
+    .slide-card {
+      width: 100%;
+      max-width: 960px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      display: flex;
+      flex-direction: column;
+    }
+
+    @media (min-width: 768px) {
+      .slide-card {
+        flex-direction: row;
+        min-height: 520px;
+      }
+      .slide-img-box {
+        width: 48%;
+      }
+      .slide-content-box {
+        width: 52%;
+      }
+    }
+
+    /* Visual Box */
+    .slide-img-box {
+      width: 100%;
+      position: relative;
+      background: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .slide-img-box img {
+      width: 100%;
+      height: auto;
+      max-height: 280px;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+
+    @media (min-width: 768px) {
+      .slide-img-box img {
+        height: 100%;
+        max-height: 100%;
+      }
+    }
+
+    /* Content Box */
+    .slide-content-box {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    @media (min-width: 768px) {
+      .slide-content-box {
+        padding: 32px 36px;
+      }
+    }
+
+    .tag-badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 6px;
+      margin-bottom: 12px;
+      width: fit-content;
+    }
+
+    .tag-badge.green {
+      background: rgba(52, 211, 153, 0.15);
+      color: var(--text-green);
+      border: 1px solid rgba(52, 211, 153, 0.35);
+    }
+    .tag-badge.red {
+      background: rgba(239, 68, 68, 0.15);
+      color: var(--accent-red);
+      border: 1px solid rgba(239, 68, 68, 0.35);
+    }
+    .tag-badge.gold {
+      background: rgba(245, 158, 11, 0.15);
+      color: var(--text-gold);
+      border: 1px solid rgba(245, 158, 11, 0.35);
+    }
+    .tag-badge.purple {
+      background: rgba(168, 85, 247, 0.15);
+      color: var(--accent-purple);
+      border: 1px solid rgba(168, 85, 247, 0.35);
+    }
+
+    .main-title {
+      font-size: 24px;
+      font-weight: 900;
+      line-height: 1.35;
+      color: var(--text-white);
+      margin-bottom: 8px;
+      word-break: keep-all;
+    }
+
+    @media (min-width: 768px) {
+      .main-title {
+        font-size: 32px;
+      }
+    }
+
+    .sub-title {
+      font-size: 15px;
+      font-weight: 700;
+      line-height: 1.45;
+      color: var(--text-gold);
+      margin-bottom: 16px;
+      word-break: keep-all;
+    }
+
+    @media (min-width: 768px) {
+      .sub-title {
+        font-size: 18px;
+      }
+    }
+
+    .info-list {
+      list-style: none;
+      margin-bottom: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .info-item {
+      font-size: 13.5px;
+      line-height: 1.5;
+      color: var(--text-iceblue);
+      background: rgba(30, 41, 59, 0.5);
+      padding: 8px 12px;
+      border-radius: 8px;
+      border-left: 3px solid var(--text-cyan);
+      word-break: keep-all;
+    }
+
+    .info-item.highlight-red {
+      border-left-color: var(--accent-red);
+      background: rgba(239, 68, 68, 0.1);
+      color: #fecaca;
+    }
+
+    .info-item.highlight-purple {
+      border-left-color: var(--accent-purple);
+      background: rgba(168, 85, 247, 0.1);
+      color: #e9d5ff;
+    }
+
+    .punchline-quote {
+      font-size: 15px;
+      font-weight: 800;
+      color: #ffffff;
+      background: linear-gradient(135deg, rgba(239, 68, 68, 0.2), rgba(15, 23, 42, 0.9));
+      border: 1px solid rgba(239, 68, 68, 0.4);
+      padding: 12px 14px;
+      border-radius: 10px;
+      margin-bottom: 14px;
+      word-break: keep-all;
+      box-shadow: 0 4px 12px rgba(239, 68, 68, 0.15);
+    }
+
+    /* Speaker Notes Accordion */
+    .speaker-notes-toggle {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px dashed rgba(255, 255, 255, 0.2);
+      border-radius: 8px;
+      padding: 8px 12px;
+      color: var(--text-muted);
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: all 0.2s ease;
+    }
+
+    .speaker-notes-toggle:hover {
+      background: rgba(255, 255, 255, 0.12);
+      color: #fff;
+    }
+
+    .speaker-notes-body {
+      display: none;
+      padding: 12px;
+      margin-top: 8px;
+      background: rgba(0, 0, 0, 0.4);
+      border-radius: 8px;
+      font-size: 12.5px;
+      line-height: 1.6;
+      color: #cbd5e1;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      word-break: keep-all;
+    }
+
+    .speaker-notes-body.active {
+      display: block;
+      animation: fadeIn 0.25s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Bottom Navigation Bar */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 60px;
+      background: rgba(7, 11, 20, 0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      padding: 0 16px;
+      z-index: 100;
+    }
+
+    .nav-btn {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #fff;
+      padding: 8px 18px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .nav-btn:active {
+      transform: scale(0.95);
+      background: var(--text-cyan);
+      color: #000;
+    }
+
+    .nav-dots {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.25);
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .dot.active {
+      width: 22px;
+      border-radius: 10px;
+      background: var(--text-cyan);
+      box-shadow: 0 0 8px rgba(56, 189, 248, 0.6);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Header -->
+  <header class="header-bar">
+    <div class="brand-title">
+      <span>👑</span> RICHMAN HEALTH 45
+    </div>
+    <div class="slide-counter" id="slideIndicator">1 / 5</div>
+  </header>
+
+  <!-- Progress Bar -->
+  <div class="progress-bar-container">
+    <div class="progress-bar-fill" id="progressBar"></div>
+  </div>
+
+  <!-- Slides Scroll Container -->
+  <main class="slider-wrapper" id="sliderWrapper">
+
+    <!-- SLIDE 1: 오프닝 -->
+    <section class="slide-section" data-index="1">
+      <div class="slide-card">
+        <div class="slide-img-box">
+          <img src="generated/slide01_richman_nanobanana_perfect.png" alt="Richman Opening Visual">
+        </div>
+        <div class="slide-content-box">
+          <div>
+            <span class="tag-badge green">THE HERO'S JOURNEY</span>
+            <h1 class="main-title">45일간의 변화의 여정</h1>
+            <p class="sub-title">48세, 내 몸의 주도권을 되찾다</p>
+            <ul class="info-list">
+              <li class="info-item">👤 <strong>발표자</strong>: 왕집정 (Rich) | 금융 남신</li>
+              <li class="info-item">🔥 <strong>45일 최종 성적표</strong>: 총 <strong>5.7kg</strong> 감량 (목표 대비 165.7% 초과 달성!)</li>
+              <li class="info-item">📏 허리둘레 <strong>8cm</strong> 감소 | 신체나이 <strong>6세 젊어짐</strong> (48세 ➔ 42세)</li>
+            </ul>
+          </div>
+          <div>
+            <div class="speaker-notes-toggle" onclick="toggleNotes(this)">
+              <span>🎙️ 발표자 한국어 대본 보기</span>
+              <span>▼</span>
+            </div>
+            <div class="speaker-notes-body">
+              "안녕하세요, Rich입니다. 오늘 여러분과 함께 45일간의 놀라운 신체 변화의 여정을 나누고자 합니다."
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 2: 제1막・평범한 세계 -->
+    <section class="slide-section" data-index="2">
+      <div class="slide-card">
+        <div class="slide-img-box">
+          <img src="generated/slide02_richman_nanobanana_perfect.png" alt="Ordinary World Visual">
+        </div>
+        <div class="slide-content-box">
+          <div>
+            <span class="tag-badge green">ACT I : THE ORDINARY WORLD</span>
+            <h2 class="main-title">남들은 9 to 6,<br>나는 "새벽 5시 to 밤 9시"</h2>
+            <p class="sub-title">제대 직후엔 자정까지 뛰었는데, 이제는 커피 세 잔으로도 못 일어난다</p>
+            <ul class="info-list">
+              <li class="info-item">⚡ <strong>새벽 5:00</strong>: 기상 및 BNI 조찬 모임 (장휘 분회 창립 & 김우 분회 자문)</li>
+              <li class="info-item">📈 <strong>오전~오후</strong>: 금융 시장 자료 정리, 고객 상담 및 투자 강연</li>
+              <li class="info-item">🍷 <strong>저녁</strong>: 쉼 없는 비즈니스 미팅과 회식의 연속</li>
+              <li class="info-item highlight-red">📉 <strong>체력의 낭떠러지</strong>: 30대엔 커피 한 잔 ➔ 40대엔 세 잔을 마셔도 늦잠</li>
+            </ul>
+          </div>
+          <div>
+            <div class="speaker-notes-toggle" onclick="toggleNotes(this)">
+              <span>🎙️ 발표자 한국어 대본 보기</span>
+              <span>▼</span>
+            </div>
+            <div class="speaker-notes-body">
+              "남들은 보통 9 to 6이지만, 제 일상은 '새벽 5시부터 밤 9시까지'였습니다. 다들 BNI 조찬 모임 아시죠? 저는 직접 창립한 장휘 분회와 자문하는 김우 분회, 두 곳을 맡고 있어 매일 새벽 5시에 일어나 자료를 정리하고, 오후엔 상담과 강연, 저녁엔 회식까지 쉼 없이 달렸습니다. 군 제대 직후엔 밤 12시까지 일해도 끄떡없었는데, 30대엔 커피 한 잔, 40대가 되니 커피 세 잔을 마셔도 아침에 몸이 천근만근이었습니다."
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 3: 뉴스 속 충격・돌연사 -->
+    <section class="slide-section" data-index="3">
+      <div class="slide-card">
+        <div class="slide-img-box">
+          <img src="generated/slide_celebrity_sudden_death_v2.png" alt="Celebrity Sudden Death Shock">
+        </div>
+        <div class="slide-content-box">
+          <div>
+            <span class="tag-badge red">SHOCKING REALITY : THE SILENT KILLER</span>
+            <h2 class="main-title">유명인 돌연사 충격:<br>보이지 않는 암살자는 사람을 가리지 않는다</h2>
+            <p class="sub-title">'워커홀릭'이든 '철저한 건강 관리자'든 — 인생의 황금기에 찾아온 갑작스러운 비보</p>
+            
+            <div class="punchline-quote">
+              💥 "돌연사는 절대 예고하지 않는다! 몸이 순식간에 강제 로그아웃된다!"
+            </div>
+
+            <ul class="info-list">
+              <li class="info-item highlight-red">
+                <strong>[워커홀릭형] 대준랑 (향년 54세, 부티크 호텔 체인 창립자)</strong><br>
+                수년간 혈압약을 먹으며 관리했음에도 과로 속 다발성 뇌출혈로 돌연 별세!
+              </li>
+              <li class="info-item highlight-purple">
+                <strong>[철저한 채식·운동형] 요국굉 (향년 55세, 하워드 호텔 3세 경영자)</strong><br>
+                장기 채식, 금연, 금주, 매일 테니스와 걷기 유지 ➔ 귀국 직후 뇌간 혈전·뇌출혈로 별세!
+              </li>
+            </ul>
+          </div>
+          <div>
+            <div class="speaker-notes-toggle" onclick="toggleNotes(this)">
+              <span>🎙️ 발표자 한국어 대본 보기</span>
+              <span>▼</span>
+            </div>
+            <div class="speaker-notes-body">
+              "한 사람은 대만 최대 부티크 호텔 체인 창립자 대준랑, 겨우 54세였습니다. 공인된 워커홀릭에 혈압약을 먹으며 관리했지만 어머니날 전날 돌연 뇌출혈로 세상을 떠났습니다. 또 한 분은 하워드 호텔 3세 요국굉, 55세. 평생 채식하고, 술·담배 전혀 안 하고, 매일 테니스 치며 철저히 건강을 챙겼는데 귀국 직후 뇌간 혈전으로 쓰러져 돌아오지 못했습니다. 돌연사는 절대 예고하지 않습니다! 몸이 순식간에 강제 로그아웃됩니다!"
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 4: 제2막・모험으로의 부름 -->
+    <section class="slide-section" data-index="4">
+      <div class="slide-card">
+        <div class="slide-img-box">
+          <img src="generated/slide03_richman_crisis_preview.png" alt="Call to Adventure Visual">
+        </div>
+        <div class="slide-content-box">
+          <div>
+            <span class="tag-badge gold">ACT II : THE CALL TO ADVENTURE</span>
+            <h2 class="main-title">내 몸의 두 가지 강력한 경고:<br>통풍과 혈압 160</h2>
+            <p class="sub-title">한밤중 미칠 듯한 통풍 발작, 혈압 160 급상승에 심장 두근거림으로 기절할 뻔하다</p>
+            <ul class="info-list">
+              <li class="info-item highlight-red">
+                ⚠️ <strong>경고 1: 한밤중 무릎 통풍 발작</strong><br>
+                미칠 듯한 고통에 눈물 쏙! "통풍이라고?! 내가 평소 착한 일도 많이 하고 복을 쌓았는데 통풍이라니?!"
+              </li>
+              <li class="info-item highlight-red">
+                ⚠️ <strong>경고 2: 무작정 168 간헐적 단식의 역풍</strong><br>
+                아침 굶고 블랙커피만 마시다 심장 급발진, 혈압 160 급상승으로 응급실행!
+              </li>
+              <li class="info-item">
+                🤦‍♂️ <strong>여전한 고집</strong>: "괜찮아, 물 많이 마시고 헬스장 열심히 가면 돼!"
+              </li>
+            </ul>
+          </div>
+          <div>
+            <div class="speaker-notes-toggle" onclick="toggleNotes(this)">
+              <span>🎙️ 발표자 한국어 대본 보기</span>
+              <span>▼</span>
+            </div>
+            <div class="speaker-notes-body">
+              "이런 뉴스를 들으면 건강관리를 시작할까요? 전혀요! '난 건강하고 집안 유전자도 좋고 평소 착한 일도 많이 해서 복을 쌓았으니 나하곤 상관없어!'라고 생각했습니다. 그러던 어느 날 밤, 무릎에 미칠 듯한 통풍 통증이 찾아왔습니다. 절대 인정할 수 없었죠. 그 후 뱃살을 빼겠다고 무작정 아침을 굶고 블랙커피만 마시는 168 간헐적 단식을 하다가, 갑자기 심장이 요동치며 혈압이 160까지 치솟아 기절할 뻔했습니다. 그래도 정신 못 차리고 '물 많이 마시고 헬스장 가면 돼'라고 버텼습니다."
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 5: 제3막・문턱을 넘다 -->
+    <section class="slide-section" data-index="5">
+      <div class="slide-card">
+        <div class="slide-img-box">
+          <img src="generated/slide04_threshold_preview.png" alt="Crossing the Threshold Visual">
+        </div>
+        <div class="slide-content-box">
+          <div>
+            <span class="tag-badge green">ACT III : CROSSING THE THRESHOLD</span>
+            <h2 class="main-title">관을 봐야 눈물을 흘린다<br>결정타는 바로 '성황야(城隍爺)'!</h2>
+            <p class="sub-title">매년 신년운세는 '운전 조심'이었는데, 올해는 '머리 질환 조심'이라니!</p>
+            <ul class="info-list">
+              <li class="info-item">
+                🙏 <strong>저승을 관장하는 성황야(城隍爺)의 경고</strong>:<br>
+                "올해는 머리 쪽 질환을 각별히 조심하라!"
+              </li>
+              <li class="info-item highlight-red">
+                😨 <strong>신령님의 말없는 고개 흔들림</strong>:<br>
+                "무슨 질환입니까?" 물었더니 엄숙하게 고개를 절레절레... 혼자서 '뇌졸중 와서 머리 터지는 거 아냐?!' 폭풍 상상!
+              </li>
+              <li class="info-item">
+                🚀 <strong>빛의 속도로 결단</strong>:<br>
+                당장 배선(沛璇) 선생님께 연락해 건강관리 코치 배정 & 영양제 일괄 구입, 즉시 실행 돌입!
+              </li>
+            </ul>
+          </div>
+          <div>
+            <div class="speaker-notes-toggle" onclick="toggleNotes(this)">
+              <span>🎙️ 발표자 한국어 대본 보기</span>
+              <span>▼</span>
+            </div>
+            <div class="speaker-notes-body">
+              "저처럼 고집 센 사람을 두고 보통 뭐라고 하죠? 바로 '관을 봐야 눈물을 흘린다'는 말이죠. 제가 건강관리를 결심하게 된 진짜 결정적 계기가 뭔지 아십니까? 바로 저승을 관장하는 성황야(城隍爺) 신령님 때문이었습니다. 매년 신년 운세를 보러 가면 항상 '운전 조심해라, 일찍 자라' 정도였는데, 올해는 뜻밖에도 '머리 쪽 질환을 각별히 조심하라'는 점괘가 나온 겁니다! 너무 무서워서 '구체적으로 어떤 머리 질환입니까?'라고 여쭸더니, 신령님이 그저 말없이 고개를 절레절레 흔드시는 겁니다! 그 모습을 보고 혼자 미친 듯이 상상했습니다. '저승의 대장이 고개를 흔들다니, 나 진짜 뇌졸중 와서 머리 터지는 거 아냐?!' 그 길로 당장 배선(沛璇) 선생님께 달려가 '선생님, 코치님 빨리 연결해 주시고 영양제 다 결제해 주세요, 지금 당장 시작합니다!'라고 외쳤습니다."
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Bottom Nav -->
+  <footer class="bottom-nav">
+    <button class="nav-btn" onclick="prevSlide()">◀ 이전</button>
+    <div class="nav-dots" id="navDots">
+      <div class="dot active" onclick="goToSlide(1)"></div>
+      <div class="dot" onclick="goToSlide(2)"></div>
+      <div class="dot" onclick="goToSlide(3)"></div>
+      <div class="dot" onclick="goToSlide(4)"></div>
+      <div class="dot" onclick="goToSlide(5)"></div>
+    </div>
+    <button class="nav-btn" onclick="nextSlide()">다음 ▶</button>
+  </footer>
+
+  <script>
+    const wrapper = document.getElementById('sliderWrapper');
+    const sections = document.querySelectorAll('.slide-section');
+    const indicator = document.getElementById('slideIndicator');
+    const progressBar = document.getElementById('progressBar');
+    const dots = document.querySelectorAll('.dot');
+    let currentIndex = 1;
+    const totalSlides = sections.length;
+
+    // Toggle Speaker Notes
+    function toggleNotes(element) {
+      const body = element.nextElementSibling;
+      body.classList.toggle('active');
+      const arrow = element.querySelector('span:last-child');
+      arrow.textContent = body.classList.contains('active') ? '▲' : '▼';
+    }
+
+    // Update UI on scroll
+    wrapper.addEventListener('scroll', () => {
+      const scrollPos = wrapper.scrollTop;
+      const height = wrapper.clientHeight;
+      const index = Math.round(scrollPos / height) + 1;
+      if (index !== currentIndex && index >= 1 && index <= totalSlides) {
+        currentIndex = index;
+        updateUI();
+      }
+    });
+
+    function updateUI() {
+      indicator.textContent = `${currentIndex} / ${totalSlides}`;
+      progressBar.style.width = `${(currentIndex / totalSlides) * 100}%`;
+      dots.forEach((dot, idx) => {
+        dot.classList.toggle('active', idx + 1 === currentIndex);
+      });
+    }
+
+    function goToSlide(index) {
+      if (index >= 1 && index <= totalSlides) {
+        currentIndex = index;
+        const target = sections[index - 1];
+        target.scrollIntoView({ behavior: 'smooth' });
+        updateUI();
+      }
+    }
+
+    function nextSlide() {
+      if (currentIndex < totalSlides) {
+        goToSlide(currentIndex + 1);
+      }
+    }
+
+    function prevSlide() {
+      if (currentIndex > 1) {
+        goToSlide(currentIndex - 1);
+      }
+    }
+
+    // Keyboard Navigation
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowDown' || e.key === 'ArrowRight' || e.key === 'PageDown') {
+        nextSlide();
+      } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft' || e.key === 'PageUp') {
+        prevSlide();
+      }
+    });
+  </script>
+</body>
+</html>
