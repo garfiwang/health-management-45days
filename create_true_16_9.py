@@ -74,7 +74,7 @@ def create_true_16_9_slide():
     title_line1 = "45 天的"
     title_line2 = "蛻變歷程"
     sub_title = "重啟 48 歲的身體主控權"
-    author_text = "主講人：王執定（Rich） ｜ 金融男神"
+    author_text = "主講人：王執定 Rich ｜ 金融界理財講師"
     stats_text = "45 天累減 5.7kg ｜ 腰圍大瘦 8cm ｜ 身體年齡年輕 6 歲"
 
     # Deep Soft Drop Shadow
