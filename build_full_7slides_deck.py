@@ -12,7 +12,7 @@ def build_full_7slides_deck():
 
     slides_data = [
         (
-            "generated/slide01_richman_nanobanana_perfect.png",
+            "generated/slide01_openai_16_9_rendered.png",
             "【開場｜預計 30 秒】\n\n各位現場的好朋友、各位夥伴，大家現在好！\n我是王執定（Rich）。今天非常榮幸能夠站在這裡，跟大家分享我在過去這 45 天，一段不可思議的身體蛻變旅程：『重啟 48 歲的身體主控權』！"
         ),
         (
